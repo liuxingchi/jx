@@ -1,0 +1,228 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<?php ?>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>管理平台</title>
+<link href="{{ asset('bundles/ydzyadmin/js/jquery-easyui-1.3/themes/default/easyui.css') }}" rel="stylesheet" type="text/css"/>
+<link href="{{ asset('bundles/ydzyadmin/js/jquery-easyui-1.3/themes/icon.css') }}" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="{{ asset('bundles/ydzyadmin/js/jquery-ui-1.8.23.custom/js/jquery-1.8.0.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/ydzyadmin/js/jquery-easyui-1.3/jquery.easyui.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/ydzyadmin/js/jquery-easyui-1.3/locale/easyui-lang-zh_CN.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/ydzyadmin/js/jquery.json-2.3.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/ydzyadmin/js/functions.js') }}"></script>
+
+<table id="dg" class="easyui-datagrid" title="抓取qq号的添加与修改" style="" rownumbers="true" pagination="true" pageSize='1000'  pageList= '[100,300,500,800,1000]', 
+			data-options="
+				iconCls: 'icon-edit',
+				singleSelect: true,
+				toolbar: '#tb',
+				url: '/app_dev.php/api/qq/retrieve',
+				onClickRow: onClickRow
+			">
+		<thead>
+			<tr>
+				<th data-options="field:'id',width:40">id</th>
+                <th data-options="field:'qq',width:80,align:'right',editor:'numberbox'">QQ</th>
+                <th data-options="field:'linker',width:120,align:'right',editor:'text'">联系人</th>
+                <th data-options="field:'linker_tel',width:90,align:'right',editor:'numberbox'">联系电话</th>
+				<th data-options="field:'province',width:80,align:'right'">省</th>
+                <th data-options="field:'city',width:80,align:'right'">市</th>
+               <!--<th data-options="field:'city',width:80,align:'right',
+						editor:{
+							type:'combobox',
+							options:{
+								valueField:'id',
+								textField:'area',
+                                required:true
+							}
+                        }">市</th>-->
+                 <th data-options="field:'creation_date',width:140,align:'right',editor:'text'">最后抓取日期</th>
+                 
+                 <th data-options="field:'status',width:80,align:'right',
+                		styler:function(value,row,index){
+                            switch (value){
+                                case '1':
+                                    return 'color:green;';
+                                    break;
+                                case '0':
+                                    return 'color:black;';
+                                    break;
+                                default:
+                                    return 'color:grey;';
+                                    break;
+                            }
+                        },
+				formatter:function(value,row,index){
+                            switch (value){
+                                case '1':
+                                    return '<a href=# onclick=status(0,'+row.id+')>不抓取</a>';
+                                    break;
+                                case '0':
+                                    return '<a href=# onclick=status(1,'+row.id+')>抓取</a>';
+                                    break;
+                                default:
+                                    return '未知';
+                                    break;
+                            }
+                        }">状态</th>
+                 <th data-options="field:'del',width:80,align:'right',
+				formatter:function(value,row,index){
+                            return '<a href=# onclick=del('+row.id+')>删除</a>';
+                         }">删除</th> 
+			</tr>
+		</thead>
+	</table>
+
+	<div id="tb" style="height:auto">
+		
+        <a href="addqq" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true">添加</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">保存</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-ok',plain:true" onclick="docatch()">全部设为抓取</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-no',plain:true" onclick="reject()">全部设为不抓取</a>
+		<input id="keyword" class="easyui-validatebox" type="text" style="width:106px" /><a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="searchkeyword()">搜索</a>
+	</div>
+	
+	<script type="text/javascript">
+		var data = [
+            {"statusid":"0","status":"未审核"},
+            {"statusid":"1","status":"审核通过"},
+			{"statusid":"2","status":"审核未通过"}
+			];
+		var editIndex = undefined;
+		function endEditing(){
+			if (editIndex == undefined){return true}
+			if ($('#dg').datagrid('validateRow', editIndex)){
+				/*var ed = $('#dg').datagrid('getEditor', {index:editIndex,field:'province'});
+				var province = $(ed.target).combobox('getValue');*/
+				var id = $('#dg').datagrid('getRows')[editIndex]['id'];
+				var qq = $('#dg').datagrid('getEditor', {index:editIndex,field:'qq'}).target.val();
+				var linker = $('#dg').datagrid('getEditor', {index:editIndex,field:'linker'}).target.val();
+				var linker_tel = $('#dg').datagrid('getEditor', {index:editIndex,field:'linker_tel'}).target.val();
+				var creation_date = $('#dg').datagrid('getEditor', {index:editIndex,field:'creation_date'}).target.val();
+				var json = {
+					id:id,
+					qq:qq,
+					linker:linker,
+					linker_tel:linker_tel,
+					creation_date:creation_date
+					}
+				ajaxPost(
+					'app_dev.php/api/qq/update',
+					json,
+					function(data, textStatus){
+						//alert("haha");
+					},
+					function(XMLHttpRequest, textStatus, errorThrown){
+						alert("出现错误，请刷新重试");
+					}
+				);
+				
+				
+				$('#dg').datagrid('endEdit', editIndex);
+				editIndex = undefined;
+				return true;
+			} else {
+				return false;
+			}
+		}
+		function searchkeyword(){
+			var keyword = $("#keyword").val();
+			var queryParams = $('#dg').datagrid('options').queryParams;
+			queryParams.keyword = keyword;
+			$('#dg').datagrid('reload');
+
+			}
+		function del(id){
+			if(confirm("确定删除吗？")){
+				var json = {
+				id:id
+				}
+			ajaxPost(
+					'app_dev.php/api/qq/del',
+					json,
+					function(data, textStatus){
+						//alert("haha");
+						window.location.href='qq';
+					},
+					function(XMLHttpRequest, textStatus, errorThrown){
+						alert("出现错误，请刷新重试");
+					}
+				);
+				}
+			}
+		function docatch(){
+			if(confirm("确定都设为抓取吗？")){
+			var json = {
+				id:-1,
+				status:1
+				}
+			ajaxPost(
+					'app_dev.php/api/qq/status',
+					json,
+					function(data, textStatus){
+						//alert("haha");
+						window.location.href='qq';
+					},
+					function(XMLHttpRequest, textStatus, errorThrown){
+						alert("出现错误，请刷新重试");
+					}
+				);
+			}
+			}
+		function reject(){
+			if(confirm("确定都设为不抓取吗？")){
+			var json = {
+				id:0,
+				status:1
+				}
+			ajaxPost(
+					'app_dev.php/api/qq/status',
+					json,
+					function(data, textStatus){
+						//alert("haha");
+						window.location.href='qq';
+					},
+					function(XMLHttpRequest, textStatus, errorThrown){
+						alert("出现错误，请刷新重试");
+					}
+				);
+			}
+		}
+		function accept(){
+			if (endEditing()){
+				$('#dg').datagrid('acceptChanges');
+			}
+		}
+		function status(status,index){
+			var json = {
+				id:index,
+				status:status
+				}
+			ajaxPost(
+					'app_dev.php/api/qq/status',
+					json,
+					function(data, textStatus){
+						//alert("haha");
+						window.location.href='qq';
+					},
+					function(XMLHttpRequest, textStatus, errorThrown){
+						alert("出现错误，请刷新重试");
+					}
+				);
+			}
+		function onClickRow(index){
+			if (editIndex != index){
+				if (endEditing()){
+					$('#dg').datagrid('selectRow', index)
+							.datagrid('beginEdit', index);
+					editIndex = index;
+				} else {
+					$('#dg').datagrid('selectRow', editIndex);
+				}
+			}
+		}
+		
+	</script>
+</body>
+</html>

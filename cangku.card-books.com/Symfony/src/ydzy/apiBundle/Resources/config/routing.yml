@@ -1,0 +1,131 @@
+ydzyapi_homepage:
+    pattern:  /
+    defaults: { _controller: ydzyapiBundle:Default:index }
+
+ydzyapi_create_promo:
+    pattern:  /promo/create
+    defaults: { _controller: ydzyapiBundle:Promos:create }
+    
+ydzyapi_retrieve_promo:
+    pattern:  /promo/retrieve
+    defaults: { _controller: ydzyapiBundle:Promos:retrieve }    
+    
+ydzyapi_list_promo:
+    pattern:  /promo/list
+    defaults: { _controller: ydzyapiBundle:Promos:list }    
+    
+ydzyapi_edit_promo:
+    pattern:  /promo/edit
+    defaults: { _controller: ydzyapiBundle:Promos:edit }    
+    
+ydzyapi_delete_promo:
+    pattern:  /promo/delete
+    defaults: { _controller: ydzyapiBundle:Promos:delete }    
+    
+ydzyapi_cart_promo:
+    pattern:  /promo/cart
+    defaults: { _controller: ydzyapiBundle:Promos:cart }    
+    
+ydzyapi_transfer_promo:
+    pattern:  /promo/transfer
+    defaults: { _controller: ydzyapiBundle:Promos:transfer }
+    
+ydzyapi_my_promo:
+    pattern:  /promo/my
+    defaults: { _controller: ydzyapiBundle:Promos:my }
+
+ydzyapi_my_orders:
+    pattern:  /promo/myorders
+    defaults: { _controller: ydzyapiBundle:Promos:myorders }
+    
+ydzyapi_mycart_promo:
+    pattern:  /promo/mycart
+    defaults: { _controller: ydzyapiBundle:Promos:mycart }
+
+ydzyapi_deloneifmycart_promo:
+    pattern:  /promo/deloneofmycart
+    defaults: { _controller: ydzyapiBundle:Promos:deoneofmycart }
+    
+ydzyapi_buy_promo:
+    pattern:  /promo/buy
+    defaults: { _controller: ydzyapiBundle:Promos:buy }
+
+ydzyapi_whethereg_promo:
+    pattern:  /promo/whethereg
+    defaults: { _controller: ydzyapiBundle:Promos:whethereg }
+
+ydzyapi_mystock_promo:
+    pattern:  /promo/mystock
+    defaults: { _controller: ydzyapiBundle:Promos:mystock }
+
+ydzyapi_create_goods:
+    pattern:  /goods/create
+    defaults: { _controller: ydzyapiBundle:Goods:create }
+
+ydzyapi_retrieve_goods:
+    pattern:  /goods/retrieve
+    defaults: { _controller: ydzyapiBundle:Goods:retrieve }
+
+ydzyapi_search_goods:
+    pattern:  /goods/search
+    defaults: { _controller: ydzyapiBundle:Goods:goodsearch }
+
+ydzyapi_retrieve_usergoods:
+    pattern:  /goods/userretrieve
+    defaults: { _controller: ydzyapiBundle:Goods:useretrieve }
+
+ydzyapi_list_goods:
+    pattern:  /goods/list
+    defaults: { _controller: ydzyapiBundle:Goods:list }
+
+ydzyapi_delete_goods:
+    pattern:  /goods/delete
+    defaults: { _controller: ydzyapiBundle:Goods:delete }
+
+ydzyapi_edit_goods:
+    pattern:  /goods/edit
+    defaults: { _controller: ydzyapiBundle:Goods:edit }
+
+ydzyapi_create_customer:
+    pattern:  /customer/create
+    defaults: { _controller: ydzyapiBundle:Customer:create }
+
+ydzyapi_retrieve_customer:
+    pattern:  /customer/retrieve
+    defaults: { _controller: ydzyapiBundle:Customer:retrieve }
+
+ydzyapi_list_customer:
+    pattern:  /customer/list
+    defaults: { _controller: ydzyapiBundle:Customer:list }
+
+ydzyapi_search_customer:
+    pattern:  /customer/search
+    defaults: { _controller: ydzyapiBundle:Customer:customersearch }
+
+ydzyapi_delete_customer:
+    pattern:  /customer/delete
+    defaults: { _controller: ydzyapiBundle:Customer:delete }
+
+ydzyapi_edit_customer:
+    pattern:  /customer/edit
+    defaults: { _controller: ydzyapiBundle:Customer:edit }
+
+ydzyapi_create_goodscollection:
+    pattern:  /goodscollection/create
+    defaults: { _controller: ydzyapiBundle:Goods:createcollection }
+
+ydzyapi_retrieve_goodscollection:
+    pattern:  /goodscollection/retrieve
+    defaults: { _controller: ydzyapiBundle:Goods:retrievecollection }
+
+ydzyapi_delete_goodscollection:
+    pattern:  /goodscollection/delete
+    defaults: { _controller: ydzyapiBundle:Goods:deletecollection }
+
+ydzyapi_edit_goodscollection:
+    pattern:  /goodscollection/mycollectionlist
+    defaults: { _controller: ydzyapiBundle:Goods:mycollectionlist }
+
+ydzyapi_testjiekou:
+    pattern:  /jiekou
+    defaults: { _controller: ydzyapiBundle:Default:jiekou }

@@ -1,0 +1,7 @@
+parameters:
+    json_parser.class: Ydzy\AdminBundle\Service\JsonParser
+    #json_parser.request: request
+services:
+    json_parser:
+        class: %json_parser.class%
+        #arguments: [%json_parser.request%]

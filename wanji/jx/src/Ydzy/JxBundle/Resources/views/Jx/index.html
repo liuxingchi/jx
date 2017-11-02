@@ -1,0 +1,133 @@
+{% extends 'YdzyJxBundle:Jx:layout.html.twig' %}
+{% block body %}
+<script>
+$(function(){ 
+  var json = 
+            {
+              "mark": "1",
+              "start": "0",
+              "num": "10"
+            };
+
+  ajaxPost(
+    'app_dev.php/api/machine/retrieveByFilter',
+    json,
+    function(data, textStatus){
+      //alert(data.length);
+      for(var i=0;i<data.length;i++){
+        //alert(data[i].pic_all);
+
+        $("#machine_list").append("<div class=\"col-sm-3\" style=\"border:#cdcdcd 1px solid; height:110px; padding:0;\"> <ul style=\"width:210px; padding:0; padding-top:2px;\" id=\"list_img_ul\"> <li style=\"float:left;\" id='"+data[i].machine_id+"0'> <img src=\"{{ asset('bundles/jxbundle/images/list_small.png') }}\"/> </li> <li style=\"float:left;\" id='"+data[i].machine_id+"1'> <img src=\"{{ asset('bundles/jxbundle/images/list_small.png') }}\"/> </li> <li style=\"float:left;\" id='"+data[i].machine_id+"2'> <img src=\"{{ asset('bundles/jxbundle/images/list_small.png') }}\"/> </li> <li style=\"float:left;\" id='"+data[i].machine_id+"3'> <img src=\"{{ asset('bundles/jxbundle/images/list_small.png') }}\"/> </li> <li style=\"float:left;\" id='"+data[i].machine_id+"4'> <img src=\"{{ asset('bundles/jxbundle/images/list_small.png') }}\"/> </li> <li style=\"float:left;\" id='"+data[i].machine_id+"5'> <img src=\"{{ asset('bundles/jxbundle/images/list_small.png') }}\"/> </li> </ul> </div> <div class=\"col-sm-7\" style=\"height:110px;\"> <a href='content/"+data[i].machine_id+"'><p style=\"color:#b40202; text-decoration:underline;font-size:14px;font-weight:700;\">"+data[i].machine_name+"</p></a> <p> <span style=\"padding:15px;padding-left:0;\">"+data[i].brand+"</span> | <span style=\"padding:15px;\">"+data[i].model+"</span> | <span style=\"padding:15px;\">"+data[i].tonn+"T</span> | <span style=\"padding:15px;\">"+data[i].workhours+"小时</span> | <span style=\"padding:15px;\">"+data[i].factory_year_full+"</span> </p> <p> <span style=\"padding:15px;padding-left:0;\">"+data[i].province+"</span> <span style=\"padding:15px;\">"+data[i].city+"</span> <span style=\"padding:15px;\">"+data[i].creation_date+"发布</span> </p> <p> <span style=\"padding:15px;padding-left:0;\">"+data[i].nickname+"</span> <span style=\"padding:15px;\">"+data[i].phone+"</span> </p> </div> <div class=\"col-sm-2\" style=\"height:110px; font-size:20px; color:#b40202;line-height:90px;font-weight:500;\">"+data[i].sale_price+"万</div> <img src=\"{{ asset('bundles/jxbundle/images/list_hr.png') }}\"/>");
+        //判断是否是false，如果不是false，将图片填充上
+        if (data[i].pic_all) {
+          var str = data[i].pic_all;
+          var arr = new Array();
+          arr = str.split(",");
+          //alert(arr[0]);
+          for(var j=0;j<=arr.length-1;j++){
+            //alert(arr[j]);
+            //var lihtml = $("#"+data[i].machine_id+j).attr("id");
+            $("#"+data[i].machine_id+j).html("<img src='"+arr[j]+"'/>");
+            //alert(lihtml);
+          }
+        }; 
+      }//结束循环
+    },
+    function(XMLHttpRequest, textStatus, errorThrown){
+      alert("出现错误，稍后请重试");
+    }
+  );
+
+});
+</script>
+ 
+  <div class="col-sm-12" id="search_line" style="margin-top:15px; padding:0;">
+  		<!--<div class="col-sm-4" id="search_box" style=" padding:0;height:34px;background-image:url({{ asset('bundles/jxbundle/images/search_box.png') }});background-repeat:no-repeat;"></div>-->
+        
+        <div class="col-sm-8" style="padding:0;">
+        <input type="text" id="search_box" onKeyUp="search_box();" maxlength="100" autocomplete="off" placeholder=""><em id="search_close"></em><img src="{{ asset('bundles/jxbundle/images/search_btn.png') }}"/>
+        </div>
+        <div class="col-sm-4" id="create_btn" align="right" style="padding-right:5px;"><img src="{{ asset('bundles/jxbundle/images/create.png') }}" /></div>
+  </div> <!--搜索框结束-->
+  
+  <div id="content" style="position:relative; width:100%; margin-top:10px; padding:0;" class="col-sm-12">
+  <div class="tabs"> <!--tab选择框-->
+    <ul>
+        <li class="first"><div style="float:left; padding-left:20px;"><img src="{{ asset('bundles/jxbundle/images/category_list.png') }}"/></div><div id="category_list_div2">机械选择</div></li>
+        <li class="last"><a href="#">从地图上查看机械</a></li>
+    </ul>
+
+</div>  <!--tab选择框结束-->
+	<div id="category" class="col-sm-12" style="padding:0;"> <!--类别选择框-->
+  <ul style="padding-top:5px;padding-left:16px;">
+        	  <li><span class="bold">机种</span>：<span class="red">全部</span> 挖掘机 装载机 推土机 挖掘机 装载机 推土机 挖掘机 装载机 推土机 </li>
+            <li><span class="bold">机种</span>：<span class="red">全部</span> 挖掘机 装载机 推土机 挖掘机 装载机 推土机 挖掘机 装载机 推土机 </li>
+            <li><span class="bold">机种</span>：<span class="red">全部</span> 挖掘机 装载机 推土机 挖掘机 装载机 推土机 挖掘机 装载机 推土机 </li>
+            <li><span class="bold">机种</span>：<span class="red">全部</span> 挖掘机 装载机 推土机 挖掘机 装载机 推土机 挖掘机 装载机 推土机 </li>
+            <li><span class="bold">机种</span>：<span class="red">全部</span> 挖掘机 装载机 推土机 挖掘机 装载机 推土机 挖掘机 装载机 推土机 </li>
+        </ul>
+        
+    </div> <!--类别选择框结束-->
+  <div class="col-sm-12" style="padding-left:0; padding-right:0; margin-top:20px;">
+  	<div class="col-sm-9" style="overflow:hidden; padding-left:0;"><span style="font-size:16px; font-weight:bold; color:#b40202; padding-left:5px;">机械列表</span>
+    <span style="float:right; padding-right:5px; line-height:20px;">排序：默认 距离 价格 出厂日期 小时数 发布日期</span>
+    <img src="{{ asset('bundles/jxbundle/images/hr.png') }}"/>
+   <div class="col-sm-12" id="machine_list"></div>
+    </div>
+    
+    
+  	<div class="col-sm-3" style="padding-right:0px; padding-left:20px;">
+    	<!--右侧第一个div-->
+    	<div style="border:#999 1px solid;border-radius: 6px; height:auto;"><img src="{{ asset('bundles/jxbundle/images/right_img1.png') }}" style=" width:264px; height:300px;padding:7px;"/></div>
+    	<br/>
+       <!-- 右侧第二个div开始-->
+        <div style="border:#999 1px solid;border-radius:6px; padding:20px;height:auto;">
+        	<span style="font-size:18px; color:#F00; padding:0;" class="bold">最新消息</span>
+        	<img src="{{ asset('bundles/jxbundle/images/right_line.png') }}" style="padding:0;"/>
+          <ul id="right_ul2" style="padding:0;">
+            <li><span>■</span>小松小松小松小松小松小松<li>
+            <li><span>■</span>小松小松小松小松小松小松<li>
+            <li><span>■</span>小松小松小松小松小松小松<li>
+            <li><span>■</span>小松小松小松小松小松小松<li>
+            <li><span>■</span>小松小松小松小松小松小松<li>
+           </ul>
+            <img src="{{ asset('bundles/jxbundle/images/right_line.png') }}"/>
+            <span class="red" style="float:right; padding-right:5px;">查看更多 ></span>
+            <br/><br/>
+        </div> <!--右侧第二个div结束-->
+        <br>
+         <!-- 右侧第三个div开始-->
+        <div style="border:#999 1px solid;border-radius:6px; padding:20px;height:auto;">
+        	<span style="font-size:18px; color:#F00; padding:0;" class="bold">热门推荐</span>
+        	<img src="{{ asset('bundles/jxbundle/images/right_line.png') }}" style="padding:0;"/>
+          <ul id="right_ul2" style="padding:0;">
+            <li><span>■</span>小松小松小松小松小松小松<li>
+            <li><span>■</span>小松小松小松小松小松小松<li>
+            <li><span>■</span>小松小松小松小松小松小松<li>
+            <li><span>■</span>小松小松小松小松小松小松<li>
+            <li><span>■</span>小松小松小松小松小松小松<li>
+           </ul>
+            <img src="{{ asset('bundles/jxbundle/images/right_line.png') }}"/>
+            <span class="red" style="float:right; padding-right:5px;">查看更多 ></span>
+            <br/><br/>
+        </div> <!--右侧第三个div结束-->
+        
+        
+    </div><!--右侧广告位展示-->
+  </div>
+  <div class="col-sm-12" align="center">
+      <ul class="pagination">
+          <li class="disabled"><a href="#">&laquo;</a></li>
+          <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+          <li><a href="#">2</a></li>
+          <li><a href="#">3</a></li>
+          <li><a href="#">4</a></li>
+          <li><a href="#">5</a></li>
+          <li><a href="#">6</a></li>
+          <li><a href="#">7</a></li>
+          <li><a href="#">8</a></li>
+          <li><a href="#">&raquo;</a></li>
+      </ul>
+</div>
+  </div> <!--content结束-->
+{% endblock %}

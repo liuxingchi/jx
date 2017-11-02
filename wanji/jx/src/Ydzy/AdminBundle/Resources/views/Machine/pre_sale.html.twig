@@ -1,0 +1,425 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>机械修改 - 管理平台</title>
+
+<link href="{{ asset('bundles/ydzyadmin/css/page.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('bundles/ydzyadmin/js/jquery-ui-1.8.23.custom/css/ui-lightness/jquery-ui-1.8.23.custom.css') }}" rel="stylesheet" type="text/css"/>
+<link href="{{ asset('bundles/ydzyadmin/js/jquery-easyui-1.3/themes/default/easyui.css') }}" rel="stylesheet" type="text/css"/>
+<link href="{{ asset('bundles/ydzyadmin/js/jquery-easyui-1.3/themes/icon.css') }}" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="{{ asset('bundles/ydzyadmin/js/jquery-ui-1.8.23.custom/js/jquery-1.8.0.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/ydzyadmin/js/jquery-ui-1.8.23.custom/js/jquery-ui-1.8.23.custom.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/ydzyadmin/js/ajaxfileupload.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/ydzyadmin/js/jquery-easyui-1.3/jquery.easyui.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/ydzyadmin/js/jquery-easyui-1.3/locale/easyui-lang-zh_CN.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/ydzyadmin/js/jquery.json-2.3.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/ydzyadmin/js/jquery.cookie.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/ydzyadmin/js/functions.js') }}"></script>
+
+<script>
+
+var timeoutId = 0;
+var allowInput = 0;
+
+
+function ajaxFileUpload()
+	{
+	 showHint($('#hint'), 'msg', '正在上传图片，请继续添加其他图片……', 0);	
+		$.ajaxFileUpload
+		(
+			{
+				url:'/file/uploadimage',
+				secureuri:false,
+				fileElementId:'imageFile',
+				dataType: 'json',
+				//data:{name:'logan', id:'id'},
+				success: function (data, status)
+				{
+  showHint($('#hint'), 'msg', '图片上传成功', 0);
+					//alert(data.Thumbnail);
+					//$('#img_1').html("<image src='"+data.Thumbnail+"' width=50 />");
+					var image_src = $('#image_src').val();
+					var image_url = $('#image_url').val();
+					$('#image_url').val(image_url+","+data.ID);
+					$('#image_src').val(image_src+","+data.Thumbnail);
+					
+					
+					var srcs = $('#image_src').val();
+					srcs = srcs.substr(1);
+					//alert(srcs);
+					var array = srcs.split(",");
+					for(var i=0;i<array.length;i++){
+						//alert(array[i]);
+						$('#img'+i).html("<image src='"+array[i]+"' width=50 />");
+						}
+				},
+				error: function (data, status, e)
+				{
+					alert("错误，请重新上传");
+				}
+			}
+		)
+		
+		return false;
+
+	}
+
+
+
+function doPost(){
+
+	
+
+	if (confirm("确定提交吗？")){
+	var machine_name;
+	if($('#machine_name').val()==""){
+	machine_name = $('#category').combobox('getText')+" "+$('#brand').combobox('getText')+" "+$('#model').val();
+	}else{
+	machine_name = $('#machine_name').val();
+	}
+	var images = $('#image_url').val();
+	images = images.substr(1);
+	var srcs = $('#image_src').val();
+	srcs = srcs.substr(1);
+	//var array = images.split(",");
+	//var json = JSON.stringify(array);
+	var lat = $('#lat').val();
+	var linker = $('#linker').val();
+	var linker_tel = $('#linker_tel').val();
+	var category = $('#category').combobox('getValue');
+	var brand = $('#brand').combobox('getValue');
+	var city = $('#city').combobox('getValue');
+	var sale_price = $('#sale_price').val();
+	var model = $('#model').val();
+	var tonn = $('#tonn').val();
+	var limit=/^[0-9]+([.]{1}[0-9]{1,2})?$/;
+	//if(lat==""){alert('请在右侧点选地图标识当前机器所在位置');return false;}
+	//else 
+	if(linker==""){alert('请填写联系人');return false;}
+	else if(isNaN(linker_tel)){alert('联系人电话格式不正确');return false;}
+	else if(linker_tel==""){alert('请填写联系人联系方式');return false;}
+	//else if(sale_price==""){alert('请填写售价');return false;}
+	//else if(limit.test(sale_price)!=true){alert('售价格式不正确(只能保留小数点后两位)');return false;}
+	//else if(limit.test(tonn)!=true){alert('吨位格式不正确(只能保留小数点后两位)');return false;}
+	else if(category==""){alert('请选择机器类别');return false;}
+	else if(brand==""){alert('请选择品牌');return false;}
+	//else if(city==""){alert('请选择省市');return false;}
+	else if(model==""){alert('请填写机型');return false;}
+
+		var json = {
+				image_url:images,
+				machine_name:machine_name,
+				category:$('#category').combobox('getValue'),
+				brand_id:$('#brand').combobox('getValue'),
+				factory_year:$('factory_year').val(),
+				user_id:$.cookie('uid'),
+				mark:1,
+				province_id:$('#province').combobox('getValue'),
+				city_id:$('#city').combobox('getValue'),
+				workhours:$('#workhours').val(),
+				tonn:$('#tonn').val(),
+				linker:$('#linker').val(),
+				linker_tel:$('#linker_tel').val(),
+				description:$('#description').val(),
+				sale_price:$('#sale_price').val(),
+				lat:$('#lat').val(),
+				lng:$('#lng').val(),
+				brand_model:$('#model').val()
+			  };
+		ajaxPost(
+			'api/machine/precreate',
+			json,
+			function(data, textStatus){
+			    alert("保存成功");
+				window.location.href='mysearch';
+			},
+			function(XMLHttpRequest, textStatus, errorThrown){
+				alert("保存失败，请刷新重试");
+			}
+		);
+	}
+}
+
+	$(function(){
+		if($.cookie('uid')==""){
+		alert("登陆超时，请重新登陆");
+		window.location.href='/login';
+		}
+		
+		var user_id = $.cookie('uid');
+		var json = {
+				user_id:user_id
+		};
+		ajaxPost(
+		'api/user/islimit',
+		json,
+		function(data, textStatus){
+		},
+		function(XMLHttpRequest, textStatus, errorThrown){
+			alert("您已达到最大可发信息数，如果有疑问请联系wanjiwangluo@163.com");
+			window.location.href="mysearch";
+		}
+	);
+	
+		$('.image').click(function(){
+			if(confirm("是否将此图片删除?")){
+			var url = $('#image_url').val();
+			var img_id = $(this).attr("id");
+			var id = img_id.substr(3);
+			alert(url);
+			alert(id);
+			var array = url.split(",");
+			
+			return true;
+			}else {return false;}
+		   
+		});
+
+	   if (event.keyCode == 13) 
+       {      
+         document.all('ibtnUpdate').click();
+         return false;
+       }
+		
+	});
+
+
+</script>
+</head>
+
+<body>
+
+<div class="page_title">
+	<span>信息录入 >> 添加机器出售</span>
+</div>
+
+<div class="box" style="min-height:100px;overflow:hidden;">
+
+<table border="0" style="float:left;">
+
+<tr><td align="center" colspan="2"><div id="hint"></div>&nbsp;</td></tr>
+<tr>
+	<td align="right" class="bold">上传图片</td>
+	<td align="left">
+	
+	<form name="form" action="" method="POST" enctype="multipart/form-data">
+	<input id="imageFile" type="file" name="imageFile">
+	<button class="button" id="buttonUpload" onclick="return ajaxFileUpload();">上传</button>
+	</form>
+	
+	</td>
+</tr>
+<tr><td align="right" class="bold"></td><td align="left">请按照重要程度顺序添加图片</td></tr>
+<input id="image_url" class="easyui-validatebox" type="hidden" style="width:176px"/>
+<input id="image_src" class="easyui-validatebox" type="hidden" style="width:176px"/>
+<tr>
+<td align="right" class="bold"></td>
+<td align="left">
+<div id="img0" class="image" width="50px" style="float:left;"></div>
+<div id="img1" class="image" width="50px" style="float:left;"></div>
+<div id="img2"  class="image" width="50px" style="float:left;"></div>
+</td></tr><tr><td align="right" class="bold"></td><td align="left">
+<div id="img3"  class="image" width="50px" style="float:left;"></div>
+<div id="img4"  class="image" width="50px" style="float:left;"></div>
+<div id="img5"  class="image" width="50px" style="float:left;"></div>
+</td></tr><tr><td align="right" class="bold"></td><td align="left">
+<div id="img6"  class="image" width="50px" style="float:left;"></div>
+<div id="img7"  class="image" width="50px" style="float:left;"></div>
+<div id="img8" class="image"  width="50px" style="float:left;"></div>
+</td></tr>
+<tr><td align="right" class="bold"></td><td align="left">
+<div id="img9" class="image" width="50px" style="float:left;"></div>
+<div id="img10" class="image" width="50px" style="float:left;"></div>
+<div id="img11" class="image" width="50px" style="float:left;"></div>
+</td></tr>
+<tr><td align="right" class="bold"></td><td align="left">
+<div id="img12" class="image" width="50px" style="float:left;"></div>
+<div id="img13" class="image" width="50px" style="float:left;"></div>
+<div id="img14" class="image" width="50px" style="float:left;"></div>
+</td></tr>
+<tr>
+	<td align="right" class="bold">机况简介</td>
+	<td align="left">
+	<textarea id="machine_name" cols="20" rows="3"></textarea>
+	</td>
+</tr>
+
+<tr>
+	<td align="right" class="bold">联系人</td>
+	<td align="left"><input id="linker" data-options="required:true" class="easyui-validatebox" style="width:176px"/></td>
+</tr>
+<tr>
+	<td align="right" class="bold">联系人电话</td>
+	<td align="left"><input id="linker_tel" class="easyui-numberbox" data-options="required:true" style="width:176px"/></td>
+</tr>
+
+<tr>
+	<td align="right" class="bold">机器类别</td>
+	<td align="left"><input id="category" class="easyui-combobox" style="width:180px" data-options="valueField:'id',textField:'category_name',url:'{{ url('category_retrieveall')}}',onSelect:function(rec){var url='/app_dev.php/api/brand/retrieveAll?category_id='+ $('#category').combobox('getValue');$('#brand').combobox('reload', url);}" /></td>
+</tr>
+<tr>
+	<td align="right" class="bold">品牌</td>
+	<td align="left"><input id="brand" class="easyui-combobox" style="width:180px" data-options="valueField:'id',textField:'brand_name'"/></td>
+</tr>
+<tr>
+	<td align="right" class="bold">机型</td>
+	<td align="left"><input id="model" class="easyui-validatebox" style="width:176px"/></td>
+</tr>
+<tr>
+	<td align="right" class="bold">出厂日期</td>
+	<td align="left"><input id="factory_year" class="easyui-validatebox" style="width:176px"></td>
+</tr>
+<tr>
+	<td align="right" class="bold"></td>
+	<td align="left">格式：201108</td>
+</tr>
+
+<tr id="tr_sale_price">
+	<td align="right" class="bold">售价（万元）</td>
+	<td align="left"><input id="sale_price" class="easyui-validatebox" style="width:176px"/></td>
+</tr>
+<tr>
+	<td align="right" class="bold">吨位（吨）</td>
+	<td align="left"><input id="tonn" class="easyui-validatebox" style="width:176px"/></td>
+</tr>
+<tr>
+	<td align="right" class="bold">工作小时数</td>
+	<td align="left"><input id="workhours" class="easyui-validatebox" style="width:176px"/></td>
+</tr>
+<tr>
+	<td align="right" class="bold">详细描述</td>
+	<td align="left"><textarea id="description" cols="20" rows="5"></textarea></td>
+</tr>
+<tr>
+	<td align="right" class="bold">机械所在位置：省</td>
+	<td align="left"><input id="province" class="easyui-combobox" style="width:80px" data-options="valueField:'id',textField:'area',url:'{{ url('area_retrievePro')}}',onSelect:function(rec){var url='/app_dev.php/api/area/retrieveCity?pro_id='+ $('#province').combobox('getValue');$('#city').combobox('reload', url);},required:true" />
+	<span class="bold">市</span><input id="city" class="easyui-combobox" style="width:80px" data-options="valueField:'id',textField:'area',required:true"/>
+	</td>
+</tr>
+
+<tr>
+	<td align="right" class="bold"></td>
+	<td align="left">请在右侧点选机械所在位置</td>
+</tr>
+<tr>
+	<td align="right" class="bold"></td>
+	<td align="left"><input id="lng" type = "hidden" data-options="required:true" class="easyui-validatebox" style="width:78px"/><input id="lat" type="hidden" class="easyui-validatebox" data-options="required:true" style="width:78px"/></td>
+</tr>
+<tr>
+	<td align="center" colspan="2">
+	<button onclick="doPost()">确定</button>
+	</td>
+</tr>
+</table>
+
+<div style="float:left;">
+		<div id="float_search_bar">
+				<label>区域：</label>
+				<input type="text" id="keyword"/>
+				<button id="search_button" >查找</button>
+				<span>点击地图或标注获取坐标</span>
+		</div>
+	   <div id="preview" style="border: 1px solid #bfd2e1;width: 600px;height: 550px;">
+			<div id="map_container" style="height: 550px;"></div>
+		</div>
+	</div>
+	<script type="text/javascript" src="http://api.map.baidu.com/api?v=1.2"></script>
+	<script type="text/javascript">
+		function getUrlParas(){
+			var hash = location.hash,
+				para = {},
+				tParas = hash.substr(1).split("&");
+			for(var p in tParas){
+				if(tParas.hasOwnProperty(p)){
+					var obj = tParas[p].split("=");
+					para[obj[0]] = obj[1];
+				}
+			}
+			return para;
+		}
+		var para = getUrlParas(),
+			center = para.address?decodeURIComponent(para.address) : "百度大厦",
+			city = para.city?decodeURIComponent(para.city) : "北京市";
+	
+		var marker_trick = false;
+		var map = new BMap.Map("map_container");
+		map.addControl(new BMap.NavigationControl());  //添加默认缩放平移控件
+		map.enableScrollWheelZoom();
+	
+		var marker = new BMap.Marker(new BMap.Point(116.404, 39.915), {
+			enableMassClear: false,
+			raiseOnDrag: true
+		 });
+		marker.enableDragging();
+		map.addOverlay(marker);
+	
+		map.addEventListener("click", function(e){
+			if(!(e.overlay)){
+				map.clearOverlays();
+				marker.show();
+				marker.setPosition(e.point);
+				setResult(e.point.lng, e.point.lat);
+			}
+		});
+		marker.addEventListener("dragend", function(e){
+			setResult(e.point.lng, e.point.lat);
+		});
+	
+		var local = new BMap.LocalSearch(map, {
+			renderOptions:{map: map},
+			 pageCapacity: 1
+		});
+		local.setSearchCompleteCallback(function(results){
+			if(local.getStatus() !== BMAP_STATUS_SUCCESS){
+				alert("无结果");
+			} else {
+				 marker.hide();
+			 }
+		});
+		local.setMarkersSetCallback(function(pois){
+			for(var i=pois.length; i--; ){
+				var marker = pois[i].marker;
+				marker.addEventListener("click", function(e){
+					marker_trick = true;
+					var pos = this.getPosition();
+					setResult(pos.lng, pos.lat);
+					
+				});
+			}
+		});
+	
+		window.onload = function(){
+			local.search(center);
+			document.getElementById("search_button").onclick = function(){
+				local.search(document.getElementById("keyword").value);
+			};
+			
+			document.getElementById("keyword").onkeyup = function(e){
+				var me = this;
+				e = e|| window.event;
+				var keycode = e.keyCode;
+				if(keycode === 13){
+					local.search(document.getElementById("keyword").value);
+				}
+			};
+		};
+		function setResult(lng, lat){
+			  $('#lng').val(lng);
+			  $('#lat').val(lat);
+		}
+   </script>
+
+</div>
+
+<!--<div class="instbox">
+说明：
+<ul>
+	
+	<li>可以添加租赁的机器</li>
+	<li>生产日期格式一定要正确，此选项可以不填</li>
+</ul>
+</div>-->
+
+</body>
+</html>

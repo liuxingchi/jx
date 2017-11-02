@@ -1,0 +1,117 @@
+<?php ?>
+<!DOCTYPE html>
+<html>
+		<head>
+				<meta charset="utf-8">
+				<meta name="viewport" content="target-densitydpi=device-dpi,width=device-width,initial-scale=1.0" />
+				<meta http-equiv="X-UA-Compatible" content="IE=7" />
+				<title>万吉网图片浏览</title>
+				<link rel="stylesheet" href="{{ asset('bundles/jxbundle/css/slide.css')}}" type="text/css" />
+				<script type="text/javascript" src="{{ asset('bundles/jxxq/jquery-1.10.2.js')}}"></script>
+				<script type="text/javascript" src="{{ asset('bundles/jxbundle/js/hhSwipe.js')}}"></script>
+				<script type="text/javascript" src="{{ asset('bundles/jxxq/jquery.json-2.3.min.js')}}"></script>
+				<script type="text/javascript">
+
+						$(function(){
+								var upurl = window.location.href; 
+								var index1=0;
+								var index2=upurl.indexOf("?");
+								if(index2=="-1"){
+										var pairs = upurl.split("/");	
+								}else{
+										var aa = upurl.substring(index1,index2);
+										var pairs = aa.split("/");
+								}
+								var mid = pairs.slice(pairs.length-1);
+								var shuju = {
+										machine_id:mid[0]
+								};
+						  	$.ajax({
+								  	type: "POST",
+								  	url: "/api/machine/info",
+								  	data: $.toJSON(shuju),
+								  	dataType: 'json',
+								  	async:false,
+								  	success: function(data){
+												var array_img1 = [];
+												for(var i=0;i<data.image.length;i++){
+														var url = data.image[i].url;
+														var postfix = url.split("/").slice(-1).join("").substr(1);
+														var img_big = url.substr(0,url.length-5);
+														var big1 = img_big+"1"+postfix;
+														array_img1.push(data.image[i].url);
+												};
+												for(var i=0;i<data.image.length;i++){
+														var url = data.image[i].url;
+														var postfix = url.split("/").slice(-1).join("").substr(1);
+														var img_big = url.substr(0,url.length-5);
+														var big1 = img_big+"0"+postfix;
+														array_img1.splice(data.image[i].position-1,1,big1);
+												};
+												
+												for(var i=0;i<array_img1.length;i++){
+														$("#scroll_wrap").append("<li><a href='#' id='li_"+i+"'><img id='img_"+i+"' src='"+array_img1[i]+"' width='100%'/></a></div>");
+														document.getElementById("img_"+i).onload = function() {
+														var haha = this.height;
+
+															if(haha < 500&&haha>10){
+
+															}
+															
+														}; 
+												}
+												
+												for(var j=data.image.length;j<data.image2.length+data.image.length;j++){
+														var url = data.image2[j-data.image.length].url;
+													var postfix = url.split("/").slice(-1).join("").substr(1);
+														var img_big = url.substr(0,url.length-5);
+												   	var big2 = img_big+"0"+postfix;
+														//$("#scroll_wrap").append("<li style='border:1px solid red;' id='lih"+j+"'><a href='#'><img id='img_"+j+"' src='"+big2+"' width='100%' /></a></li>");	
+														$("#scroll_position").append("<li><a href='javascript:void(0);'>"+j+"</a></li>");
+														
+												}
+												
+												var slider = Swipe(document.getElementById('scroll_img'), {
+														auto:100000,
+														continuous: false,
+														callback: function(pos) {
+																var i = bullets.length;
+																while (i--) {
+																		bullets[i].className = '';
+																}
+																bullets[pos].className = 'on';
+														}
+												});
+												
+												//var bullets = document.getElementById('scroll_position').getElementsByTagName('li');
+									
+										},
+										error: function(XMLHttpRequest) {
+											//alert("服务器错误请重试");
+										}		  
+								});
+						});
+				</script>	
+		</head>
+		<body>
+				<div id="all" style="border:1px solid red;width:100%;">
+				<article style="border:1px solid red;width:100%;">  
+					  <div  style="border:1px solid red;width:100%;">
+						    <div class="scroll_box" id="scroll_img" style="">
+						      	<ul class="scroll_wrap" id="scroll_wrap" style=""></ul>
+						    </div>
+						<!--    <ul class="scroll_position" id='scroll_position' style="border:1px solid red;"></ul> -->
+					  </div>
+				</article>
+				</div>
+		</body>
+</html>
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<?php ?>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>万吉工程机械交易网</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{{ asset('bundles/jxbundle/css/bootstrap.css') }}" rel="stylesheet">
+	<!-- Custom styles for this template -->
+    <link href="{{ asset('bundles/jxbundle/css/grid.css') }}" rel="stylesheet">
+	<script type="text/javascript" src="{{ asset('bundles/ydzyadmin/js/jquery-ui-1.8.23.custom/js/jquery-1.8.0.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/ydzyadmin/js/functions.js') }}"></script>
+    
+
+
+    <!-- Just for debugging purposes. Don't actually copy this line! -->
+    <!--[if lt IE 9]><script src="../../docs-assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="http://cdn.bootcss.com/html5shiv/3.7.0/html5shiv.min.js"></script>
+      <script src="http://cdn.bootcss.com/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+
+  <body>
+  <div id="container" class="container">
+  
+  
+<div>
+		<div id="float_search_bar" class="form-group">
+				
+				<div class="col-sm-4">
+                <input type="hidden" id="lnglat" value="{{location}}"/>
+				<input type="text" id="keyword" class="form-control" placeholder="点击地图或标注获取坐标"/>
+				</div>
+				<div class="col-sm-1">
+				<button id="search_button" class="btn btn-danger">查找</button>
+				</div>
+				<div class="col-sm-1" id="result">
+				
+				</div>
+				<div class="col-sm-1">
+				<a href="javascript:window.opener=null;window.open('','_self');window.close();"><button type="button" class="btn btn-danger" id="map_sub">确定</button></a>
+				</div>
+		</div>
+		<br>
+		<br>
+       
+	   <div id="preview" class="col-sm-12" style="position:relative;">
+        <div id="loading"></div>
+			<div id="map_container" style="height: 700px;"></div>
+		</div>
+	</div> 
+	
+   
+	<script type="text/javascript" src="http://api.map.baidu.com/api?v=1.2"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/library/TextIconOverlay/1.2/src/TextIconOverlay_min.js"></script>
+    <!--<script type="text/javascript" src="http://api.map.baidu.com/library/MarkerClusterer/1.2/src/MarkerClusterer_min.js"></script>-->
+	<script type="text/javascript">
+			
+		var rmList  = [];
+		function getUrlParas(){
+			var hash = location.hash,
+				para = {},
+				tParas = hash.substr(1).split("&");
+			for(var p in tParas){
+				if(tParas.hasOwnProperty(p)){
+					var obj = tParas[p].split("=");
+					para[obj[0]] = obj[1];
+				}
+			}
+			return para;
+		}
+		var para = getUrlParas(),
+			center = para.address?decodeURIComponent(para.address) : "铸诚大厦",
+			city = para.city?decodeURIComponent(para.city) : "北京市";
+			
+		var lnglat = $('#lnglat').val();
+		if(lnglat==1){
+		var point = new BMap.Point(116.487344,39.952556);
+		var marker_trick = false;
+		var map = new BMap.Map("map_container");
+		map.centerAndZoom(point, 5);
+		}else{
+			var location_array = lnglat.split(",");
+			var point = new BMap.Point(location_array[0],location_array[1]);
+			var marker_trick = false;
+			var map = new BMap.Map("map_container");
+			map.centerAndZoom(point, 18);
+			}
+		//alert(Object.prototype.toString.apply(lnglat));
+		
+		map.addControl(new BMap.NavigationControl());  //添加默认缩放平移控件
+		map.enableContinuousZoom();    //启用地图惯性拖拽，默认禁用
+		map.disableDoubleClickZoom();  //关闭双击放大
+		map.enableScrollWheelZoom();
+		var marker = new BMap.Marker(point, {
+            enableMassClear: false,
+            raiseOnDrag: true
+		 });
+		map.addOverlay(marker);
+
+
+// 复杂的自定义覆盖物
+		function ComplexCustomOverlay(point, text, mouseoverText){
+		  this._point = point;
+		  this._text = text;
+		  this._overText = mouseoverText;
+		}
+		ComplexCustomOverlay.prototype = new BMap.Overlay();
+		ComplexCustomOverlay.prototype.initialize = function(map){
+		  this._map = map;
+		  var div = this._div = document.createElement("div");
+		  div.style.position = "absolute";
+		  div.style.zIndex = BMap.Overlay.getZIndex(this._point.lat);
+		  div.style.backgroundColor = "#b40202";
+		  div.style.border = "1px solid #fff";
+		  div.style.color = "white";
+		  div.style.height = "25px";
+		  div.style.padding = "2px";
+		  div.style.lineHeight = "18px";
+		  div.style.whiteSpace = "nowrap";
+		  div.style.MozUserSelect = "none";
+		  div.style.fontSize = "12px"
+		  var span = this._span = document.createElement("span");
+		  div.appendChild(span);
+		  span.appendChild(document.createTextNode(this._text));      
+		  var that = this;
+	
+		  var arrow = this._arrow = document.createElement("div");
+		  arrow.style.background = "url({{ asset('bundles/jxbundle/images/baidulabel.png') }}) no-repeat";
+		  arrow.style.position = "absolute";
+		  arrow.style.width = "11px";
+		  arrow.style.height = "10px";
+		  arrow.style.top = "22px";
+		  arrow.style.left = "10px";
+		  arrow.style.overflow = "hidden";
+		  div.appendChild(arrow);
+		 
+		  div.onmouseout = function(){
+/*			this.style.backgroundColor = "#b40202";
+			this.style.zIndex="99";
+			this.style.borderColor = "#fff";
+			this.getElementsByTagName("span")[0].innerHTML = that._overText;
+			arrow.style.backgroundPosition = "0px -20px";
+		  */
+			//this.remove();
+			}
+	
+/*		  div.onmouseout = function(){
+			this.style.backgroundColor = "#b40202";
+			this.style.borderColor = "#fff";
+			this.style.zIndex="0";
+			this.getElementsByTagName("span")[0].innerHTML = that._text;
+			arrow.style.backgroundPosition = "0px 0px";
+			this.remove();
+		  }
+*/	
+		  map.getPanes().labelPane.appendChild(div);
+		  
+		  return div;
+		}
+		ComplexCustomOverlay.prototype.draw = function(){
+		  var map = this._map;
+		  var pixel = map.pointToOverlayPixel(this._point);
+		  this._div.style.left = pixel.x - parseInt(this._arrow.style.left) + "px";
+		  this._div.style.top  = pixel.y - 45 + "px";
+		}
+		
+
+		var local = new BMap.LocalSearch(map, {
+			renderOptions:{map: map},
+			 pageCapacity: 1
+		});
+		local.setSearchCompleteCallback(function(results){
+			if(local.getStatus() !== BMAP_STATUS_SUCCESS){
+				alert("无结果");
+			} else {
+				 marker.hide();
+			 }
+		});
+		local.setMarkersSetCallback(function(pois){
+			for(var i=pois.length; i--; ){
+				var marker = pois[i].marker;
+				marker.addEventListener("click", function(e){
+					marker_trick = true;
+					var pos = this.getPosition();
+					setResult(pos.lng, pos.lat);
+					
+				});
+			}
+		});
+	
+	//根据位置获取当前范围内的所有机器
+	function getMachine(lng,lat,lng1,lat1){
+		map.clearOverlays();
+		var json = {
+			lng:lng,
+			lat:lat,
+			lng1:lng1,
+			lat1:lat1
+			};
+		ajaxPost(
+			'app_dev.php/api/area/retrieveCityByLocation',
+			json,
+			function(data, textStatus){
+				
+				//alert(data[2].brand);
+/*				var lng = data[2].lng;
+				var lat = data[2].lat;
+				var point = new BMap.Point(lng,lat);
+				var myCompOverlay = new ComplexCustomOverlay(point,"kaishi","滑过");
+
+    				map.addOverlay(myCompOverlay);
+				
+*/				for(var i=0;i<data.length;i++){
+					  if(data[i].tonn==0){var tonn="";}else{var tonn=data[i].tonn+"吨 ";}
+					  if(data[i].workhours==0){var workhours="";}else{var workhours=data[i].workhours+"小时 ";}
+					  if(data[i].rent_by_num==0){var rent_by_num="";}else{var rent_by_num=data[i].rent_by_num+"万元/台";}
+					  if(data[i].rent_by_month==0){var rent_by_month="";}else{var rent_by_month=data[i].rent_by_month+"万元/月";}
+					  if(data[i].sale_price==0||data[i].sale_price==undefined){var sale_price="";}else{var sale_price=data[i].sale_price+"万";}
+					  if(data[i].factory_year==0||data[i].factory_year==undefined||data[i].factory_year==false){var factory_year="";}else{var factory_year=data[i].factory_year+"年 ";}
+						
+					if(data[i].mark==1){
+					  
+					var txt = data[i].brand+" "+data[i].model+" ", mouseoverTxt = txt+ workhours+factory_year+sale_price;						
+					}else{
+					var txt = data[i].brand+" "+data[i].model+" ", mouseoverTxt = txt +workhours+factory_year+rent_by_num+rent_by_month;
+					}
+					var lng = data[i].lng;
+					var lat = data[i].lat;
+					var id = data[i].id;
+					//var point = new BMap.Point(lng,lat);
+//var myIcon = new BMap.Icon("http://wanjiwang.cn/bundles/jxbundle/images/red_pin.png", new BMap.Size(30, 30), {
+                       // offset: new BMap.Size(10, 25), // 指定定位位置
+                        //imageOffset: new BMap.Size(0, 0 - 10 * 25) // 设置图片偏移
+                   // });
+        
+		//var infoWindow = new BMap.InfoWindow(mouseoverTxt);  // 创建信息窗口对象
+							//var marker = new BMap.Marker(point);
+					createMark(lng,lat,txt,mouseoverTxt,id);
+					
+					
+					//marker.addEventListener("mouseover", function(){          
+				  		 //this.openInfoWindow(infoWindow);
+						 //this.setTitle(mouseoverTxt);
+				  // });
+				
+				
+			  }//结束循环
+				$('.BMap_Marker').add('.BMap_noprint').attr("data-toggle","tooltip");
+				$('.BMap_Marker').add('.BMap_noprint').tooltip();
+			  	$("#loading").html("");
+				},
+			function(XMLHttpRequest, textStatus, errorThrown){
+				$("#loading").html("");
+					switch(XMLHttpRequest.status)
+					{
+						case 400: //没数据
+							break;
+						default:
+					}
+				}
+	 		)
+		}
+		var myIcon = new BMap.Icon("http://wanjiwang.cn/bundles/jxbundle/images/red_pin.png", new BMap.Size(30, 30), {});
+		//js闭包防止信息重复显示
+	function createMark(lng,lat,txt,info_html,id){
+				var point = new BMap.Point(lng,lat);
+				var marker =new BMap.Marker(point,{icon:myIcon});
+				map.addOverlay(marker);
+				
+				//alert($(marker).html());
+				
+				//$('.BMap_Marker').add('.BMap_noprint').attr("title", info_html);
+				
+				//marker.addEventListener("mouseover", function(e){ 
+					marker.setTitle(info_html);
+					//this.openInfoWindow(infoWindow);
+/*					var lng = this.getPosition().lng;
+					var lat = this.getPosition().lat;
+					var point = new BMap.Point(lng,lat);
+					var myCompOverlay = new ComplexCustomOverlay(point,txt,info_html);
+					map.addOverlay(myCompOverlay);
+*/					
+				//});				
+				//var myCompOverlay = new ComplexCustomOverlay(point,txt,info_html);
+
+   				//map.addOverlay(myCompOverlay);
+				marker.addEventListener("click", function(e){ 
+					window.open('../content/'+id);
+				});
+				
+		};
+		
+	function getAllPro(){
+		var myStyles = [{
+        url: 'http://wanjiwang.cn/bundles/jxbundle/images/map_overlay.png',
+        size: new BMap.Size(53,53),
+        textColor: '#ffffff',
+        opt_textSize: 10
+    }];
+		map.clearOverlays();
+		//从数据库中调调取所有的省数量和坐标位置，聚合状态放到地图中
+		ajaxPost(
+			'app_dev.php/api/area/allProvince',
+			{},
+			function(data, textStatus){
+			$("#loading").html("");
+			for(var i=0;i<data.length;i++){
+			var rm = new BMapLib.TextIconOverlay(new BMap.Point(data[i].lng, data[i].lat), data[i].num, { styles: myStyles });
+			rmList.push(rm);
+		map.addOverlay(rm);
+		rm.addEventListener("click", function (e) {
+			var lng = this.getPosition().lng;
+			var lat = this.getPosition().lat;
+			var point = new BMap.Point(lng,lat);
+			var marker = new BMap.Marker(point);
+			map.centerAndZoom(point,10);
+			
+			$("#loading").html("<img src='/bundles/jxbundle/images/loading4.gif'/>");
+			for(var i=0;i<rmList.length;i++){
+				  map.removeOverlay(rmList[i]);
+				}
+			//获取当前范围的机械的机械
+			  var bs = map.getBounds();   //获取可视区域
+			  var bssw = bs.getSouthWest();   //可视区域左下角
+			  var bsne = bs.getNorthEast();   //可视区域右上角
+			  getMachine(bssw.lng,bssw.lat,bsne.lng,bsne.lat);
+        });
+			  }//结束循环
+			},
+			function(XMLHttpRequest, textStatus, errorThrown){
+			 	 
+			}
+		  ); 
+
+		}
+	
+	
+$(function(){	
+	getAllPro();
+	
+	
+	var loading_width = $("#map_container").width()/2-100;
+	var loading_height = $("#map_container").height()/2-100;
+	$("#loading").attr("style","width:124px;position:absolute;z-index:999;top:"+loading_height+"px;left:"+loading_width+"px");
+	
+	$("#loading").html("<img src='/bundles/jxbundle/images/loading4.gif'/>");
+	
+	map.addEventListener("zoomstart",function(){
+		var zoom = map.getZoom();
+		if(zoom >= 10){
+			$("#loading").html("<img src='/bundles/jxbundle/images/loading4.gif'/>");
+			for(var i=0;i<rmList.length;i++){
+				  map.removeOverlay(rmList[i]);
+				}
+			//获取当前范围的机械的机械
+			  var bs = map.getBounds();   //获取可视区域
+			  var bssw = bs.getSouthWest();   //可视区域左下角
+			  var bsne = bs.getNorthEast();   //可视区域右上角
+			  getMachine(bssw.lng,bssw.lat,bsne.lng,bsne.lat);
+			}else{
+				getAllPro();
+				}
+		
+		});
+	map.addEventListener("movestart",function(){
+		var zoom = map.getZoom();
+		if(zoom >= 10){
+			$("#loading").html("<img src='/bundles/jxbundle/images/loading4.gif'/>");
+			for(var i=0;i<rmList.length;i++){
+				  map.removeOverlay(rmList[i]);
+				}
+			//获取当前范围的机械的机械
+			  var bs = map.getBounds();   //获取可视区域
+			  var bssw = bs.getSouthWest();   //可视区域左下角
+			  var bsne = bs.getNorthEast();   //可视区域右上角
+			  getMachine(bssw.lng,bssw.lat,bsne.lng,bsne.lat);
+			}else{
+				getAllPro();
+				}
+		
+		
+		});
+		
+		
+		
+	
+});	
+	window.onload = function(){
+		document.getElementById("search_button").onclick = function(){
+				local.search(document.getElementById("keyword").value);
+			};
+			
+			document.getElementById("keyword").onkeyup = function(e){
+				var me = this;
+				e = e|| window.event;
+				var keycode = e.keyCode;
+				if(keycode === 13){
+					local.search(document.getElementById("keyword").value);
+				}
+			};
+		};
+		function setResult(lng, lat){
+			  $('#lng').val(lng);
+			  $('#lat').val(lat);
+			  document.getElementById("result").innerHTML = lng + "  " + lat;
+		}
+   </script>
+  
+</div> <!--container结束-->
+   
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script type="text/javascript" src="{{ asset('bundles/ydzyadmin/js/jquery.json-2.3.min.js') }}"></script>
+    <script src="{{ asset('bundles/jxbundle/js/bootstrap.min.js') }}"></script>
+	<script src="{{ asset('bundles/jxbundle/js/bootstrap-datetimepicker.js') }}"></script>
+	<script src="{{ asset('bundles/jxbundle/js/locales/bootstrap-datetimepicker.zh-CN.js') }}"></script>
+    <script src="{{ asset('bundles/jxbundle/js/my.js') }}"></script>
+  </body>
+</html>

@@ -1,0 +1,153 @@
+{% extends 'YdzyJxBundle:Jx:layout.html.twig' %}
+{% block body %}
+<script>
+var timer = null;
+var offset = 2000;
+var index = 0;
+
+//大图交替轮换
+function slideImage(i){
+    var id = 'big_'+ i;
+    $('#'+ id)
+        .animate({opacity: 1}, 800, '').show()
+        .siblings(':visible')
+        .animate({left: 'hide'},'fast',function(){
+            $(this).animate({opacity: 0}, 800).hide();
+        });
+}
+function auto(){
+	index++;
+    if (index > $("#image_length").val()){
+        index = 0;
+    }
+	slideImage(index);
+    timer = window.setTimeout(auto, offset);
+}
+
+$(function(){ 
+var machine_id = $("#machine_id").val();
+var json = 
+            {
+              "machine_id": machine_id,
+            };
+
+  ajaxPost(
+    'app_dev.php/api/machine/info',
+    json,
+    function(data, textStatus){
+	  $("#machine_title").html(data.machine_name);
+	  $("#sale_price").html(data.sale_price);
+	  $("#brand_name").html(data.brand_name);
+	  $("#brand_model").html(data.brand_model);
+	  $("#tonn").html(data.tonn);
+	  $("#workhours").html(data.workhours);
+	  $("#factory_year").html(data.factory_year);
+	  $("#province").html(data.province);
+	  $("#nickname").html(data.nickname);
+	  $("#phone").html(data.phone);
+	  $("#description").html(data.description);
+	  //alert(data.image.length);
+	  $("#image_length").val(data.image.length);
+	   for(var i=0;i<data.image.length;i++){
+	   	var img_big = (data.image[i].url).substring(0,48);
+		var  postfix = (data.image[i].url).substring(49);
+	   	var big = img_big+"0"+ postfix;
+	     $("#"+machine_id+i).attr("src",data.image[i].url);
+		 $("#image_big").append("<img src='"+big+"' height='600px' width='800px' id='big_"+i+"'/>");
+		 
+	   }
+	   
+    },
+    function(XMLHttpRequest, textStatus, errorThrown){
+      alert("出现错误，稍后请重试");
+    }
+  );
+auto();
+});
+</script>
+<!--列表开始-->
+  <div class="col-sm-12" id="list">
+  <input type="hidden" value= "{{id}}" id="machine_id"/>
+  <input type="hidden" value= "" id="image_length"/>
+   <div  id="top">
+		<center><span id="machine_title"></span></center>
+   </div>
+   <div class="col-md-8" style="max-width:630px; margin-bottom:10px;">
+   	<div class="col-md-4" style="margin:0; padding:0;"><img id="{{id}}0" width="181px" height="121px" src="{{ asset('bundles/jxbundle/images/1.jpg') }}"></div>
+    <div class="col-md-4" style="margin:0; padding:0;"><img id="{{id}}1" width="181px" height="121px" src="{{ asset('bundles/jxbundle/images/1.jpg') }}"></div>
+    <div class="col-md-4" style="margin:0; padding:0;"><img id="{{id}}2" width="181px" height="121px" src="{{ asset('bundles/jxbundle/images/1.jpg') }}"></div>
+   </div>
+   <div class="col-md-4">
+   	<div class="col-md-6">售价：<span style="font-size:24px; color:#b40202 !important;"><span id="sale_price"></span>万</span></div></br></br></br>
+    <div class="col-md-6"><span>品牌：<span id="brand_name"></span></span></div><div class="col-md-6"><span>机型：<span id="brand_model"></span></span></div>
+   </div>
+   <div class="col-md-8" style="max-width:630px; margin-bottom:10px;">
+   	<div class="col-md-4" style="margin:0; padding:0;"><img id="{{id}}3"width="181px" height="121px" src="{{ asset('bundles/jxbundle/images/1.jpg') }}"></div>
+    <div class="col-md-4" style="margin:0; padding:0;"><img id="{{id}}4"width="181px" height="121px" src="{{ asset('bundles/jxbundle/images/1.jpg') }}"></div>
+    <div class="col-md-4" style="margin:0; padding:0;"><img id="{{id}}5"width="181px" height="121px" src="{{ asset('bundles/jxbundle/images/1.jpg') }}"></div>
+   </div>
+   <div class="col-md-4">
+	<div class="col-md-6"><span>小时数：<span id="workhours"></span></span></div><div class="col-md-6"><span>出厂日期：<span id="factory_year"></span></span></div></br></br></br>
+	<div class="col-md-6"><span>吨位：<span id="tonn"></span>吨</span></div><div class="col-md-6"><span>所在地：<span id="province"></span></span></div>
+   </div>
+   <div class="col-md-8" style="max-width:630px;">
+   	<div class="col-md-4" style="margin:0; padding:0;"><img id="{{id}}6" width="181px" height="121px" src="{{ asset('bundles/jxbundle/images/1.jpg') }}"></div>
+    <div class="col-md-4" style="margin:0; padding:0;"><img id="{{id}}7" width="181px" height="121px" src="{{ asset('bundles/jxbundle/images/1.jpg') }}"></div>
+    <div class="col-md-4" style="margin:0; padding:0;"><img id="{{id}}8" width="181px" height="121px" src="{{ asset('bundles/jxbundle/images/1.jpg') }}"></div>
+   </div>
+   <div class="col-md-4" style="border: 1px solid #B40202; border-radius:3px; ">
+   	<span class="col-md-6" style="height:35px; line-height:35px;">卖家：<span id="nickname"></span></span><br>
+       <div>
+    	<div style="margin-top:15px; margin-bottom:15px;margin-left:5px; min-width:380px !important;">
+         <div style="float:left"><img src="{{ asset('bundles/jxbundle/images/phone.png') }}"></div>
+         <div style="float:left; margin-left:10px; margin-bottom:10px;">
+         	<span style="font-size:30px; color:#b40202 !important; font-weight:bold" id="phone"></span><br>
+         	<span style="color:#999 !important;">欢迎来电咨询，请说明是在万吉网上看见的</span>
+         </div>
+		</div>
+       </div>
+   </div>
+  </div>
+  <!--列表结束-->
+  <hr style="width:100%; color:#333 !important; size:5px;">
+  <!--center开始-->
+  <div class="col-md-10" style="margin:0; margin-bottom:30px; padding:0;">
+  <!--大图-->
+  <div style="width:800px; height:600px; overflow:hidden;"/>
+  <div id="image_big" style="text-align:center;"></div>
+  </div>
+  </div>
+  <div class="col-md-2">
+  	<span style="font-family:'微软雅黑'; color:#b40202; font-size:18px;">详情介绍</span><br><br>
+    <div style="font-family:'微软雅黑'; font-size:18px; text-indent:2em !important; line-height:32px;" id="description"> </div>
+  </div><br>
+  <!--center结束-->
+  <!--轮换开始-->
+  <div style="clear:both"></div>
+   <div class="col-md-12" style="margin:0; padding:0; ">
+   
+	   <ul id="image_small_list" style="padding:0;">
+	  		<li><img id="image_list_left" src="{{ asset('bundles/jxbundle/images/3.png') }}"></li>
+			<li><img src="{{ asset('bundles/jxbundle/images/5.jpg') }}"></li>
+			<li><img src="{{ asset('bundles/jxbundle/images/5.jpg') }}"></li>
+			<li><img src="{{ asset('bundles/jxbundle/images/5.jpg') }}"></li>
+			<li><img src="{{ asset('bundles/jxbundle/images/5.jpg') }}"></li>
+			<li><img src="{{ asset('bundles/jxbundle/images/5.jpg') }}"></li>
+			<li><img src="{{ asset('bundles/jxbundle/images/5.jpg') }}"></li>
+			<li><img src="{{ asset('bundles/jxbundle/images/5.jpg') }}"></li>
+			<li><img src="{{ asset('bundles/jxbundle/images/5.jpg') }}"></li>
+			<li><img src="{{ asset('bundles/jxbundle/images/5.jpg') }}"></li>
+			<li><img src="{{ asset('bundles/jxbundle/images/5.jpg') }}"></li>
+			<li><img src="{{ asset('bundles/jxbundle/images/5.jpg') }}"></li>
+			<li style="float:right;"><img id="image_list_right" src="{{ asset('bundles/jxbundle/images/4.png') }}"></li>
+	   </ul>
+    
+  </div><br>
+  <br>
+  <!--轮换结束-->
+  <!--地图开始-->
+  <div style="font-size:24px; color:#b40202;font-family:'微软雅黑'; margin:20px 0px;padding-top:20px;">设备位置</div>
+  <div id="map"><img src="{{ asset('bundles/jxbundle/images/6.jpg') }}"></div>
+  <!--地图结束-->
+  <hr style="width:100%; color:#333 !important; size:5px;">
+{% endblock %}

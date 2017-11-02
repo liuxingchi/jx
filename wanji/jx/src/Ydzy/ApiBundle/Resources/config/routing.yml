@@ -1,0 +1,302 @@
+ydzy_api_homepage:
+    pattern:  /
+    defaults: { _controller: YdzyApiBundle:Default:index }
+##############################################################
+# user
+##############################################################
+user:
+    pattern:  /user
+    defaults: { _controller: YdzyApiBundle:User:index }
+user_retrieve:
+    pattern:  /user/retrieve
+    defaults: { _controller: YdzyApiBundle:User:retrieve }
+user_retrieveall:
+    pattern:  /user/retrieveall
+    defaults: { _controller: YdzyApiBundle:User:retrieveAll }
+user_retrieveallAdmin:
+    pattern:  /user/retrievealladmin
+    defaults: { _controller: YdzyApiBundle:User:retrieveAllAdmin }
+user_islimit:
+    pattern:  /user/islimit
+    defaults: { _controller: YdzyApiBundle:User:islimit }
+##############################################################
+# brand
+##############################################################
+brand_retrieve:
+    pattern:  /brand/retrieve
+    defaults: { _controller: YdzyApiBundle:Brand:retrieve }
+brand_retrieveAll:
+    pattern:  /brand/retrieveAll
+    defaults: { _controller: YdzyApiBundle:Brand:retrieveAll }
+brand_info:
+    pattern:  /brand/info
+    defaults: { _controller: YdzyApiBundle:Brand:info }
+brand_update:
+    pattern:  /brand/update
+    defaults: { _controller: YdzyApiBundle:Brand:update }
+brand_del:
+    pattern:  /brand/del
+    defaults: { _controller: YdzyApiBundle:Brand:del }
+brand_add:
+    pattern:  /brand/add
+    defaults: { _controller: YdzyApiBundle:Brand:add }
+##############################################################
+# history
+##############################################################
+history:
+    pattern:  /createhistory
+    defaults: { _controller: YdzyApiBundle:History:create }
+##############################################################
+# push
+##############################################################
+push_pic:
+    pattern:  /pushpic
+    defaults: { _controller: YdzyApiBundle:Push:pic }
+push_changepic:
+    pattern:  /changepushpic
+    defaults: { _controller: YdzyApiBundle:Push:changepic }
+push_getall:
+    pattern:  /push/getall
+    defaults: { _controller: YdzyApiBundle:Push:getAll }
+push_del:
+    pattern:  /push/del
+    defaults: { _controller: YdzyApiBundle:Push:del }
+##############################################################
+# leaveword
+##############################################################
+leaveword:
+    pattern:  /leaveword
+    defaults: { _controller: YdzyApiBundle:Leave:leaveword }
+leavewordmanage:
+    pattern:  /leavewordmanage
+    defaults: { _controller: YdzyApiBundle:Leave:manage }
+##############################################################
+# category
+##############################################################
+category:
+    pattern:  /category
+    defaults: { _controller: YdzyApiBundle:Category:index }
+category_retrieveall:
+    pattern:  /category/retrieveall
+    defaults: { _controller: YdzyApiBundle:Category:retrieveall }
+##############################################################
+# driver
+##############################################################
+driver_retrieve:
+    pattern:  /driver/retrieve
+    defaults: { _controller: YdzyApiBundle:Driver:retrieve }
+driver_collection:
+    pattern:  /driver/collection
+    defaults: { _controller: YdzyApiBundle:Driver:collection }
+driver_info:
+    pattern:  /driver/info
+    defaults: { _controller: YdzyApiBundle:Driver:info }
+driver_create:
+    pattern:  /driver/create
+    defaults: { _controller: YdzyApiBundle:Driver:create }
+driver_update:
+    pattern:  /driver/update
+    defaults: { _controller: YdzyApiBundle:Driver:update }
+driver_del:
+    pattern:  /driver/del
+    defaults: { _controller: YdzyApiBundle:Driver:del }
+##############################################################
+# follow
+##############################################################
+follow_retrieve:
+    pattern:  /follow
+    defaults: { _controller: YdzyApiBundle:Follow:follow }
+follow_my:
+    pattern:  /myfollow
+    defaults: { _controller: YdzyApiBundle:Follow:myfollow }
+follow_cancel:
+    pattern:  /cancelfollow
+    defaults: { _controller: YdzyApiBundle:Follow:cancelfollow }
+follow_is:
+    pattern:  /isfollow
+    defaults: { _controller: YdzyApiBundle:Follow:isfollow }
+follow_news:
+    pattern:  /follownews
+    defaults: { _controller: YdzyApiBundle:Follow:follownews }
+follow_count:
+    pattern:  /follownews_count
+    defaults: { _controller: YdzyApiBundle:Follow:follownewsCount }
+##############################################################
+# area
+##############################################################
+area_retrieve:
+    pattern:  /area/retrieve
+    defaults: { _controller: YdzyApiBundle:Area:retrieve }
+area_retrieve_all_machine:
+    pattern:  /area/retrieveAllMachine
+    defaults: { _controller: YdzyApiBundle:Area:retrieveAllMachine }
+area_retrieve_all_machine_num:
+    pattern:  /area/retrieveAllMachineNum
+    defaults: { _controller: YdzyApiBundle:Area:retrieveAllMachineNum }
+area_retrieve_all_prolocation:
+    pattern:  /area/retrieveAllProLocation
+    defaults: { _controller: YdzyApiBundle:Area:retrieveAllProLocation }
+area_retrieve_all_citylocation:
+    pattern:  /area/retrieveAllCityLocation
+    defaults: { _controller: YdzyApiBundle:Area:retrieveAllCityLocation }
+area_retrievePro:
+    pattern:  /area/retrievePro
+    defaults: { _controller: YdzyApiBundle:Area:retrievePro }
+area_retrieveCity:
+    pattern:  /area/retrieveCity
+    defaults: { _controller: YdzyApiBundle:Area:retrieveCity }
+area_retrieveCityJson:
+    pattern:  /area/retrieveCityJson
+    defaults: { _controller: YdzyApiBundle:Area:retrieveCityJson }
+area_retrieveId:
+    pattern:  /area/retrieveId
+    defaults: { _controller: YdzyApiBundle:Area:retrieveId }
+area_retrieveAllPro:
+    pattern:  /area/allProvince
+    defaults: { _controller: YdzyApiBundle:Area:allProvince }
+area_retrieveCityByLocation:
+    pattern:  /area/retrieveCityByLocation
+    defaults: { _controller: YdzyApiBundle:Area:retrieveCityByLocation }
+##############################################################
+# QQ
+##############################################################
+qq_retrieve:
+    pattern:  /qq/retrieve
+    defaults: { _controller: YdzyApiBundle:QQ:retrieve }
+qq_retrievecount:
+    pattern:  /qq/retrievecount
+    defaults: { _controller: YdzyApiBundle:QQ:retrievecount }
+qq_add:
+    pattern:  /qq/add
+    defaults: { _controller: YdzyApiBundle:QQ:add }
+qq_update:
+    pattern:  /qq/update
+    defaults: { _controller: YdzyApiBundle:QQ:update }
+qq_status:
+    pattern:  /qq/status
+    defaults: { _controller: YdzyApiBundle:QQ:status }
+qq_del:
+    pattern:  /qq/del
+    defaults: { _controller: YdzyApiBundle:QQ:del }
+##############################################################
+# business
+##############################################################
+business:
+    pattern:  /business
+    defaults: { _controller: YdzyApiBundle:Business:index }
+business_start_date:
+    pattern:  /business/start_date
+    defaults: { _controller: YdzyApiBundle:Business:startdate }
+business_end_date:
+    pattern:  /business/end_date
+    defaults: { _controller: YdzyApiBundle:Business:enddate }
+business_status:
+    pattern:  /business/status
+    defaults: { _controller: YdzyApiBundle:Business:status }
+business_count:
+    pattern:  /business/count
+    defaults: { _controller: YdzyApiBundle:Business:count }
+##############################################################
+# calllist
+##############################################################
+calllist:
+    pattern:  /calllist
+    defaults: { _controller: YdzyApiBundle:CallList:calllist }
+calllist_mycalllist:
+    pattern:  /mycalllist
+    defaults: { _controller: YdzyApiBundle:CallList:mycalllist }
+calllist_delectcall:
+    pattern:  /delectcall
+    defaults: { _controller: YdzyApiBundle:CallList:delectcall }
+calllist_delectall:
+    pattern:  /delectall
+    defaults: { _controller: YdzyApiBundle:CallList:delectall }
+##############################################################
+# machine
+##############################################################
+machine_index:
+    pattern:  /machine/index
+    defaults: { _controller: YdzyApiBundle:Machine:index }
+machine_updateadmin:
+    pattern:  /machine/updateadmin
+    defaults: { _controller: YdzyApiBundle:Machine:updateAdmin }
+machine_retrieveSpiderMachineNum:
+    pattern:  /machine/retrieveSpiderMachineNum
+    defaults: { _controller: YdzyApiBundle:Machine:retrieveSpiderMachineNum }
+machine_info:
+    pattern:  /machine/info
+    defaults: { _controller: YdzyApiBundle:Machine:info }
+machine_retrieveByUid:
+    pattern:  /machine/retrieveByUid
+    defaults: { _controller: YdzyApiBundle:Machine:retrieveByUid }
+machine_retrieveByAdmin:
+    pattern:  /machine/retrieveByAdmin
+    defaults: { _controller: YdzyApiBundle:Machine:retrieveByAdmin }
+machine_retrieveall:
+    pattern:  /machine/retrieveAll
+    defaults: { _controller: YdzyApiBundle:Machine:retrieveAll }
+machine_preinfo:
+    pattern:  /machine/preinfo
+    defaults: { _controller: YdzyApiBundle:Machine:preinfo }
+machine_recommend:
+    pattern:  /machine/recommend
+    defaults: { _controller: YdzyApiBundle:Machine:recommend }
+machine_predel:
+    pattern:  /machine/predel
+    defaults: { _controller: YdzyApiBundle:Machine:predel }
+machine_retrieveByFilter:
+    pattern:  /machine/retrieveByFilter
+    defaults: { _controller: YdzyApiBundle:Machine:retrieveByFilter }
+machine_del:
+    pattern:  /machine/del
+    defaults: { _controller: YdzyApiBundle:Machine:del }
+machine_create:
+    pattern:  /machine/create
+    defaults: { _controller: YdzyApiBundle:Machine:create }
+machine_collection:
+    pattern:  /machine/collection
+    defaults: { _controller: YdzyApiBundle:Machine:collection }
+machine_precreate:
+    pattern:  /machine/precreate
+    defaults: { _controller: YdzyApiBundle:Machine:precreate }
+machine_changestatus:
+    pattern:  /machine/changeStatus
+    defaults: { _controller: YdzyApiBundle:Machine:changeStatus }
+machine_changestatusbypage:
+    pattern:  /machine/changeStatusByPage
+    defaults: { _controller: YdzyApiBundle:Machine:changeStatusByPage }
+machine_update:
+    pattern:  /machine/update
+    defaults: { _controller: YdzyApiBundle:Machine:update }
+machine_preupdate:
+    pattern:  /machine/preupdate
+    defaults: { _controller: YdzyApiBundle:Machine:preupdate }
+machine_upload:
+    pattern:  /machine/upload
+    defaults: { _controller: YdzyApiBundle:Machine:upload }
+machine_uploadByPage:
+    pattern:  /machine/uploadByPage
+    defaults: { _controller: YdzyApiBundle:Machine:uploadByPage }
+image_upload:
+    pattern:  /image/upload
+    defaults: { _controller: YdzyApiBundle:Image:imageupload }
+getVersion:
+    pattern:  /version
+    defaults: { _controller: YdzyApiBundle:Version:getversion }
+download:
+    pattern:  /download
+    defaults: { _controller: YdzyApiBundle:Version:download }
+download_web:
+    pattern:  /downloadweb
+    defaults: { _controller: YdzyApiBundle:Version:downloadWeb }
+##############################################################
+# config
+##############################################################
+config:
+    pattern:  /config
+    defaults: { _controller: YdzyApiBundle:Config:config }
+
+machine_pushtml:
+    pattern:  /onepushtml
+    defaults: { _controller: YdzyApiBundle:Push:onepushtml }
+

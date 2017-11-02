@@ -1,0 +1,108 @@
+﻿ <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>机械 - 管理平台</title>
+
+<link href="{{ asset('bundles/ydzyadmin/css/menu.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('bundles/ydzyadmin/js/jquery-ui-1.8.23.custom/css/ui-lightness/jquery-ui-1.8.23.custom.css') }}" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="{{ asset('bundles/ydzyadmin/js/jquery-ui-1.8.23.custom/js/jquery-1.8.0.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/ydzyadmin/js/jquery-ui-1.8.23.custom/js/jquery-ui-1.8.23.custom.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/ydzyadmin/js/jquery.json-2.3.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/ydzyadmin/js/jquery.cookie.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/ydzyadmin/js/functions.js') }}"></script>
+
+<script>
+$(function(){
+	$('#accordion').accordion();
+	var role = $('#role').val();
+	var uid = $('#uid').val();
+	var username = $('#username').val();
+	$.cookie('username', username);
+	$.cookie('uid', uid);
+	if(role=="ROLE_ADMIN"){
+	$('#manage').hide();
+	$('#manage_ul').hide();
+	$('#manage_ul_1').hide();
+	$('#manage_ul_div').hide();
+	$('#luru').show();
+	$('#luru_ul').show();
+	}else{
+	$('#luru').hide();
+	$('#luru_ul').hide();
+	}
+});
+
+function doLogout()
+{
+	if (confirm("确定注销登录吗？")){
+		showHint($('#logout_hint'), '', '正在注销……', 1);
+		ajaxPost(
+			'/logout',
+			{},
+			function(){
+				window.parent.location.href="/login";
+			},
+			function(){
+				window.parent.location.href="/login";
+			}
+		);
+		
+	}
+}
+</script>
+</head>
+
+<body>
+<table border="0" width="100%">
+	<tr><td align="left" style="font-family: 微软雅黑; font-size:20pt;color:#b40202">欢迎回到万吉网管理中心！</td></tr>
+	<tr><td id="logout_hint" align="right" style="font-family: 微软雅黑; font-size:10pt;">账户信息：{{username}}<a href="#" onclick="doLogout()">[<span style='color:#b40202'>注销</span>]</a></td></tr>
+	<input id="role" value="{{role[0]}}" type="hidden"/>
+	<input id="uid" value="{{uid}}" type="hidden"/>
+	<input id="username" value="{{username}}" type="hidden"/ >
+</table>
+
+<div id="accordion">
+    
+	<div class="menu1" id="manage_ul_div"><a href="#">机械信息录入</a></div>
+	<ul id="manage_ul_1">
+		<li><a href="{{ url('ydzy_admin_machine_pre_sale') }}" target="page">二手机械录入</a></li>
+		<!--<li><a href="{{ url('ydzy_admin_machine_pre_rent') }}" target="page">出租机械录入</a></li>-->
+	</ul>
+    <div class="menu1" id="luru"><a href="#">信息管理</a></div>
+	<ul id="luru_ul">
+		<!--<li><a href="{{ url('ydzy_admin_pre_machine_search') }}" target="page">管理我录入的信息</a></li>-->
+		<li><a href="{{ url('ydzy_admin_pre_machine') }}" target="page">审核信息</a></li>
+	</ul>
+     
+	<div class="menu1" id="manage"><a href="#">管理员</a></div>
+	<ul id="manage_ul">
+	    
+		<li><a href="{{ url('ydzy_admin_brand_manage') }}" target="page">机械品牌管理</a></li>
+		<li><a href="{{ url('ydzy_admin_brand_add') }}" target="page">机械品牌添加</a></li>
+		<li><a href="{{ url('ydzy_admin_machine_search') }}" target="page">机械高级搜索</a></li>
+		<li><a href="{{ url('ydzy_admin_pre_machine_qq') }}" target="page">抓取qq号管理</a></li>
+		<li><a href="{{ url('ydzy_admin_pre_machine_qqcount') }}" target="page">qq发布数统计</a></li>
+		<li><a href="{{ url('ydzy_admin_pre_machine_manage') }}" target="page">审核抓取信息</a></li>
+		<li><a href="{{ url('ydzy_admin_pre_machine_devide') }}" target="page">抓取信息分配</a></li>
+		<li><a href="{{ url('ydzy_admin_role_manage') }}" target="page">发布人管理</a></li>
+		<li><a href="{{ url('ydzy_admin_tags') }}" target="page">推送新闻</a></li>
+		<li><a href="{{ url('ydzy_admin_pushdel') }}" target="page">推送信息管理</a></li>
+		<li><a href="{{ url('ydzy_admin_pic') }}" target="page">关注动态页图片</a></li>
+		<li><a href="{{ url('ydzy_admin_leaveword') }}" target="page">留言查看</a></li>
+		<li><a href="{{ url('ydzy_admin_version') }}" target="page">版本上传</a></li>
+		<li><a href="{{ url('ydzy_admin_config') }}" target="page">设置</a></li>
+	</ul>	
+    
+
+</div>
+
+<p></p>
+<div id="Foot">
+<div class="copyright">
+	<span>北京万吉工程机械科技有限公司版权所有</span>
+</div>
+</div>
+	
+</body>
+</html>

@@ -1,0 +1,21 @@
+parameters:
+   my_datebase.class:     Ydzy\ApiBundle\Service\Datebase
+   spider_datebase.class: Ydzy\ApiBundle\Service\SpiderDatebase
+   oss.class:             Ydzy\ApiBundle\Service\Oss
+   json_parser.class:     Ydzy\ApiBundle\Service\JsonParser
+   json_encode.class:     Ydzy\ApiBundle\Service\JsonEncode
+   location.class:		  Ydzy\ApiBundle\Service\Location
+
+services:
+   my_datebase:
+      class:     %my_datebase.class%
+   spider_datebase:
+      class:     %spider_datebase.class%
+   oss:
+      class:     %oss.class%
+   json_parser:
+      class:    %json_parser.class%
+   json_encode:
+      class:    %json_encode.class%
+   location:
+      class:    %location.class%

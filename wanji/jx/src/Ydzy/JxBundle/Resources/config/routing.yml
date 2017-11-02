@@ -1,0 +1,110 @@
+jx_register:
+    pattern:  /register
+    defaults: { _controller: YdzyJxBundle:Jx:register }
+jx_repwd:
+    pattern:  /repwd
+    defaults: { _controller: YdzyJxBundle:Jx:repwd }
+jx_login:
+    pattern:  /login
+    defaults: { _controller: YdzyJxBundle:Jx:login }
+jx_index:
+    pattern:  /
+    defaults: { _controller: YdzyJxBundle:Jx:index }
+ydzy_jx_content:
+    pattern:  /content/{id}
+    defaults: { _controller: YdzyJxBundle:Jx:content }
+ydzy_jx_driver_content:
+    pattern:  /driver_content/{id}
+    defaults: { _controller: YdzyJxBundle:Jx:driverContent }
+jx_publish_sale:
+    pattern:  /publishSale
+    defaults: { _controller: YdzyJxBundle:Jx:publishSale}
+jx_publish_rent:
+    pattern:  /publishRent
+    defaults: { _controller: YdzyJxBundle:Jx:publishRent}
+jx_rent:
+    pattern:  /rent
+    defaults: { _controller: YdzyJxBundle:Jx:rent}
+jx_driver:
+    pattern:  /driver
+    defaults: { _controller: YdzyJxBundle:Jx:driver}
+jx_publish_driver:
+    pattern:  /publishDriver
+    defaults: { _controller: YdzyJxBundle:Jx:publishDriver}
+jx_map:
+    pattern:  /map/{location}
+    defaults: { _controller: YdzyJxBundle:Jx:map}
+jx_myfollow:
+    pattern:  /myfollow
+    defaults: { _controller: YdzyJxBundle:Jx:myfollow}
+jx_recommend:
+    pattern:  /recommend
+    defaults: { _controller: YdzyJxBundle:Jx:recommend}
+jx_info:
+    pattern:  /info/{id}
+    defaults: { _controller: YdzyJxBundle:Jx:info}
+jx_myinfo:
+    pattern:  /myinfo/
+    defaults: { _controller: YdzyJxBundle:Jx:myinfo}
+jx_editsale:
+    pattern:  /editSale/{id}
+    defaults: { _controller: YdzyJxBundle:Jx:editSale}
+jx_editdriver:
+    pattern:  /editDriver/{id}
+    defaults: { _controller: YdzyJxBundle:Jx:editDriver}
+jx_job:
+    pattern:  /job
+    defaults: { _controller: YdzyJxBundle:Jx:job}
+jx_wanji:
+    pattern:  /wanji
+    defaults: { _controller: YdzyJxBundle:Jx:wanji}
+jx_linkus:
+    pattern:  /linkus
+    defaults: { _controller: YdzyJxBundle:Jx:linkus}
+#############################################
+#客户端详情页面
+#############################################
+
+ydzy_jx_csxq:
+    pattern:  /csxq/{id}
+    defaults: { _controller: YdzyJxBundle:Default:csxq }
+
+ydzy_jx_zwzp:
+    pattern:  /zwzp/{driver_id}
+    defaults: { _controller: YdzyJxBundle:Default:zwzp }
+
+ydzy_jx_czxq:
+    pattern:  /czxq/{id}
+    defaults: { _controller: YdzyJxBundle:Default:czxq }
+
+ydzy_jx_ditu:
+    pattern:  /ditu/{location}
+    defaults: { _controller: YdzyJxBundle:Default:ditu }
+
+ydzy_jx_cslist:
+    pattern:  /cslist/{category_id}
+    defaults: { _controller: YdzyJxBundle:Default:cslist }
+
+ydzy_jx_czlist:
+    pattern:  /czlist/{category_id}
+    defaults: { _controller: YdzyJxBundle:Default:czlist }
+ydzy_jx_hotlist:
+    pattern:  /hotlist/
+    defaults: { _controller: YdzyJxBundle:Default:hotlist }
+#############################################
+#推送的时候点击推送信息跳转的页面
+#############################################
+ydzy_jx_pushtml:
+    pattern:  /pushtml/{pid}
+    defaults: { _controller: YdzyJxBundle:Jx:pushtml }
+
+ydzy_jx_xqxinwen:
+    pattern:  /xqxinwen
+    defaults: { _controller: YdzyJxBundle:Jx:xqxinwen }
+
+ydzy_jx_weblunbo:
+    pattern:  /weblunbo/{machine_id}
+    defaults: { _controller: YdzyJxBundle:Jx:weblunbo }
+ydzy_jx_weblunbowbb:
+    pattern:  /weblunbowbb/{driver_id}
+    defaults: { _controller: YdzyJxBundle:Jx:weblunbowbb }

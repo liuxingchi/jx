@@ -1,0 +1,203 @@
+{% extends 'YdzyJxBundle:Jx:layout.html.twig' %}
+{% block body %}
+<?php ?>
+<script>
+$(function(){ 
+loadnav();
+<!--短信发送接口-->
+$('#btn').click(function () {
+		 var phone = $('#phone').val();
+		 	var data = {username:phone};
+		 	$.ajax({
+				type:"POST", 
+				url:'/app_dev.php/getpasswordtoken', 
+				dataType:"json",
+				data:$.toJSON(data),
+				timeout:5000,
+				cache:true,
+				async:true,
+				success: function (data, textStatus) {
+					$('#myalert').modal('show');
+					$('#myalert_content').html("短信发送成功，请注意查收");
+					
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					 switch(XMLHttpRequest.status)
+						{
+						case 400:
+							$('#myalert').modal('show');
+							$('#myalert_content').html("此手机号没有注册");
+							break;
+						case 200:
+							$('#myalert').modal('show');
+							$('#myalert_content').html("短信发送成功，请注意查收");
+							break;
+						default:
+							$('#myalert').modal('show');
+							$('#myalert_content').html("发送失败，请刷新重试");	
+						}
+					}
+			});
+		 
+		 
+		var count = 60; 
+		var countdown = setInterval(CountDown, 1000); 
+		 
+		 function CountDown() { 
+			$("#btn").attr("disabled", true); 
+			$("#btn").val("请在 " + count + " 秒后重试!"); 
+			if (count == 0) { 
+			$("#btn").val("获取验证码").removeAttr("disabled"); 
+			clearInterval(countdown); 
+			} 
+			count--; 
+		} 
+		 	
+		 	})<!--短信发送结束-->
+
+});	
+//更改密码
+function do_post(){
+		 	var phone = $('#phone').val();
+			var validate = $('#yzm').val();
+			var password = $('#pwd').val();
+			var again_password = $('#repwd').val();
+			
+			if (phone==""){
+				$('#myalert').modal('show');
+				$('#myalert_content').html("手机号不能为空");
+				return false;
+				}
+			else if (phone.length!=11){
+				$('#myalert').modal('show');
+				$('#myalert_content').html("手机号格式不正确");
+				return false;
+				}
+			else if (password==""){
+				$('#myalert').modal('show');
+				$('#myalert_content').html("新密码不能为空");
+				return false;
+				}
+			else if(password!=again_password){
+				$('#myalert').modal('show');
+				$('#myalert_content').html("两次输入密码不一致");
+				return false;
+				}
+			else if (validate==""){
+				$('#myalert').modal('show');
+				$('#myalert_content').html("验证码不能为空");
+				return false;
+				}
+			var json={
+					username:phone,
+					validate:validate,
+					newpwd:password
+					};
+			ajaxPost(
+				'/app_dev.php/userchangepassword',
+				json,
+				function(data, textStatus){
+					$('#myalert').modal('show');
+					$('#myalert_content').html("修改成功");
+					window.location.href="{{url('jx_login')}}";
+				},
+				function(XMLHttpRequest, textStatus, errorThrown){
+				  switch(XMLHttpRequest.status)
+						{
+							case 401:
+								$('#myalert').modal('show');
+								$('#myalert_content').html("获取短信手机号和当前填写手机号不一致");
+								break;
+							case 403:
+								$('#myalert').modal('show');
+								$('#myalert_content').html("验证码不正确，请重新获取");
+								break;
+							default:
+								$('#myalert').modal('show');
+								$('#myalert_content').html("修改失败，请稍后重试");	
+						}
+      
+				}
+			);
+		}	
+
+
+</script>
+
+<div class="col-sm-10" style="margin-top:50px;">
+	<div style="height:40px;width:100%;"><div style="width:300px;height:40px;border:#b40202 soid 1px; background-color:#b40202;border-top-left-radius:0.5em;border-top-right-radius:0.5em;color:#FFF; text-align:center; line-height:50px;font-family:微软雅黑;font-size:16px;">忘记密码</div></div>
+	<div style="height:auto;border-top:#b40202 solid 3px;">
+    	<!--左侧注册框-->
+        <div style="border:#CCC solid 1px;margin-top:20px;height:400px;">
+        <br /><br />
+        <form class="form-horizontal" role="form">
+  <div class="form-group">
+    <label for="inputEmail3" class="col-sm-3 control-label">手机号:</label>
+    <div class="col-sm-5">
+      <input type="text" class="form-control" id="phone" placeholder="输入手机号获取验证码">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputPassword3" class="col-sm-3 control-label">验证码:</label>
+    <div class="col-sm-5">
+      <input type="text" class="form-control" id="yzm" placeholder="四位手机短信验证码">
+     </div>
+     <div class="col-sm-2">
+      <input type="button" id="btn" class="btn btn-default" value="获取验证码"/>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputEmail3" class="col-sm-3 control-label">新密码:</label>
+    <div class="col-sm-5">
+      <input type="password" onKeypress="javascript:if(event.keyCode == 32)event.returnValue = false;" class="form-control" id="pwd" placeholder="请输入6-16位数字或字母">
+    </div>
+  </div>
+ 
+ <div class="form-group">
+
+    <label for="inputEmail3" class="col-sm-3 control-label">确认密码:</label>
+    <div class="col-sm-5">
+      <input type="password" onKeypress="javascript:if(event.keyCode == 32)event.returnValue = false;" class="form-control" id="repwd" placeholder="请再次输入登录密码">
+    </div>
+  </div>
+  <br /><br />
+ 
+  <div class="form-group">
+    <div class="col-sm-offset-3 col-sm-5">
+      <button type="button" class="btn col-sm-4 btn-danger" onclick="do_post()">更改密码</button>
+    </div>
+  </div>
+  
+</form>
+        
+        </div><!--左侧注册框结束-->
+    </div>
+    
+</div>
+<!--右侧-->
+<div class="col-sm-2" style="padding:0;margin-top:113px;border:#CCC solid 1px;height:100px;">
+	<div style="width:100%;height:38px; background:#fff  url(https://i0.yongche.name/images/app/common/bg_x.gif) repeat-x 0 -25px;font-family:微软雅黑; font-size:16px;padding-left:10px;line-height:38px;color:#5e5e5e; font-weight:800;">已有万吉网账户？</div>
+
+<div style="height:50px;line-height:50px;text-align:center;">请直接<a href="{{url('jx_login')}}">登录</a></div>
+</div>
+
+  
+<!-- Modal -->
+<div class="modal" id="myalert" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" style="width:500px;margin:200px auto;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">提示</h4>
+      </div>
+      <div class="modal-body" id="myalert_content">
+        ...
+      </div>
+      <div class="modal-footer"> 
+        <button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button>
+       </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+{% endblock %}

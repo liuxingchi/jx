@@ -1,0 +1,791 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"q",
+				"quyu_sql"
+			],
+			[
+				"pro",
+				"PROPERTY_COMPANY_NAME_sql"
+			],
+			[
+				"deve",
+				"DEVELOPER_NAME_sql"
+			],
+			[
+				"floor",
+				"FLOOR_AREA_RATIO_sql"
+			],
+			[
+				"aff",
+				"AFFORESTATION_RATIO_sql"
+			],
+			[
+				"build",
+				"BUILD_FINISHED_YEAR_sql"
+			],
+			[
+				"total",
+				"TOTALL_NUM_sql"
+			],
+			[
+				"addr",
+				"addr_sql"
+			],
+			[
+				"plo",
+				"plot_num_sql"
+			],
+			[
+				"gro",
+				"GROUD_AREA_sql"
+			],
+			[
+				"to",
+				"totalPrice_sql"
+			],
+			[
+				"property",
+				"PROPERTY_COMPANY_NAME"
+			],
+			[
+				"fl",
+				"FLOOR_AREA_RATIO"
+			],
+			[
+				"buil",
+				"BUILD_FINISHED_YEAR"
+			],
+			[
+				"house",
+				"HOUSE_TITLE"
+			],
+			[
+				"mysql",
+				"mysql_query"
+			],
+			[
+				"tot",
+				"TOTAL_FLOORS_sql"
+			],
+			[
+				"bri",
+				"BRIEF_ADDR_sql"
+			],
+			[
+				"fin",
+				"FINISHED_YEAR_sql"
+			],
+			[
+				"pers",
+				"PERSONAL_RECOMMEND_REASON_sql"
+			],
+			[
+				"hall",
+				"HALL_NUMS_sql"
+			],
+			[
+				"bed",
+				"BEDROOM_NUMS_sql"
+			],
+			[
+				"bedr",
+				"bedroom_num_sql"
+			],
+			[
+				"pv",
+				"PV_sql"
+			],
+			[
+				"use",
+				"USEFUL_AREA_sql"
+			],
+			[
+				"terr",
+				"TERRACE_NUMS_sql"
+			],
+			[
+				"gar",
+				"GARDEN_NUMS_sql"
+			],
+			[
+				"stor",
+				"STOREHOUSE_NUMS_sql"
+			],
+			[
+				"bal",
+				"BALCONY_NUMS_sql"
+			],
+			[
+				"stud",
+				"STUDY_NUMS_sql"
+			],
+			[
+				"kit",
+				"KITCHEN_NUMS_sql"
+			],
+			[
+				"bath",
+				"BATHROOM_NUMS_sql"
+			],
+			[
+				"house_ter",
+				"HOUSE_TERMINAL_RELATION_STATUS_sql"
+			],
+			[
+				"if",
+				"IF_DINGJI_sql"
+			],
+			[
+				"isnew",
+				"IS_NEW_RECOMMEND_sql"
+			],
+			[
+				"isrec",
+				"IS_RECOMMEND_sql"
+			],
+			[
+				"isring",
+				"IS_RING_sql"
+			],
+			[
+				"other",
+				"OTHER_TYPE_JZ"
+			],
+			[
+				"OTHER_TYPE_zx",
+				"OTHER_TYPE_ZX_sql"
+			],
+			[
+				"oth",
+				"OTHER_TYPE_ZZLX"
+			],
+			[
+				"fy",
+				"fytd_sql"
+			],
+			[
+				"landz",
+				"landz_id"
+			],
+			[
+				"brif",
+				"BRIEF_ADDR"
+			],
+			[
+				"floo",
+				"FLOOR_NO"
+			],
+			[
+				"hall_",
+				"HALL_NUMS"
+			],
+			[
+				"us",
+				"USEFUL_AREA"
+			],
+			[
+				"hou",
+				"HOUSE_STATUS"
+			],
+			[
+				"house_s",
+				"HOUSE_STATUS"
+			],
+			[
+				"rent",
+				"RENT_PRICE"
+			],
+			[
+				"Are",
+				"AREA"
+			],
+			[
+				"lan",
+				"landz_id"
+			],
+			[
+				"fid",
+				"fids"
+			],
+			[
+				"cler",
+				"clearInterval"
+			],
+			[
+				"im",
+				"image_url_array"
+			],
+			[
+				"Ma",
+				"Marker"
+			],
+			[
+				"保存",
+				"保存失败，请刷新重试"
+			],
+			[
+				"br",
+				"brand_model"
+			],
+			[
+				"sa",
+				"sale_price"
+			],
+			[
+				"bran",
+				"brand_id"
+			],
+			[
+				"link",
+				"linker_tel"
+			],
+			[
+				"linker",
+				"linker"
+			],
+			[
+				"fun",
+				"function"
+			],
+			[
+				"ca",
+				"category_a"
+			],
+			[
+				"machine",
+				"machine_id"
+			],
+			[
+				"font",
+				"font-weight"
+			],
+			[
+				"pci",
+				"pic_all"
+			],
+			[
+				"fa",
+				"factory_year_sort"
+			],
+			[
+				"cate",
+				"category_id"
+			],
+			[
+				"curl",
+				"curl_handle"
+			],
+			[
+				"con",
+				"condition"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"selected_items":
+		[
+			[
+				"pack",
+				"Package Control: Install Package"
+			],
+			[
+				"pa in",
+				"Package Control: Install Package"
+			],
+			[
+				"pa",
+				"Package Control: Install Package"
+			],
+			[
+				"pac",
+				"Package Control: Remove Package"
+			],
+			[
+				"packe",
+				"Package Control: List Packages"
+			],
+			[
+				"list",
+				"Package Control: List Packages"
+			],
+			[
+				"listp",
+				"Package Control: List Packages"
+			],
+			[
+				"instll",
+				"Package Control: Install Package"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: ",
+				"Package Control: Remove Package→删除程序包"
+			]
+		],
+		"width": 504.0
+	},
+	"console":
+	{
+		"height": 160.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/D/wamp/www/jx/sftp-config-alt.json",
+		"/D/wamp/www/jx/sftp-config.json",
+		"/D/wamp/www/jx/wanji/jx/sftp-config-alt.json",
+		"/D/Program Files (x86)/Sublime Text3/Data/Packages/User/sftp_servers/yingdong",
+		"/D/Program Files (x86)/Sublime Text3/Data/Packages/User/sftp_servers/jx",
+		"/D/wamp/www/mose/src/Ydzy/UserBundle/Controller/DefaultController.php",
+		"/D/wamp/www/web/src/Ydzy/JxBundle/Resources/views/Default/cslist.html.twig",
+		"/D/wamp/www/web/src/Ydzy/JxBundle/Controller/DefaultController.php",
+		"/C/Users/liu/AppData/Local/Temp/360zip$Temp/360$5/BaeBase.class.php",
+		"/C/Users/liu/AppData/Local/Temp/360zip$Temp/360$4/BaeException.class.php",
+		"/C/Users/liu/AppData/Local/Temp/360zip$Temp/360$3/ChannelException.class.php",
+		"/C/Users/liu/AppData/Local/Temp/360zip$Temp/360$2/RequestCore.class.php",
+		"/C/Users/liu/AppData/Local/Temp/360zip$Temp/360$0/sample.php",
+		"/C/Users/liu/AppData/Local/Temp/360zip$Temp/360$1/Channel.class.php",
+		"/C/Users/liu/Desktop/素材/ckeditor_4.4.1_standard/ckeditor/LICENSE.md",
+		"/C/Users/liu/Desktop/wx.php",
+		"/C/Users/liu/Desktop/l丽兹行/web/Home/Lib/Action/SellAction.class.php",
+		"/C/Users/liu/AppData/Local/Temp/scp12966/home/landz/Home/Lib/Action/PublicAction.class.php",
+		"/C/Users/liu/AppData/Local/Temp/scp07664/home/landz/Home/Lib/Action/AppreciateAction.class.php",
+		"/C/Users/liu/AppData/Local/Temp/scp06272/home/landz/Home/Lib/Action/ConsultantAction.class.php",
+		"/C/Users/liu/AppData/Local/Temp/scp10871/home/landz/Home/Lib/Action/GlobalAction.class.php",
+		"/C/Users/liu/AppData/Local/Temp/scp05194/home/landz/Home/Lib/Action/IndexAction.class.php",
+		"/C/Users/liu/AppData/Local/Temp/scp41990/home/landz/index.php",
+		"/C/Users/liu/AppData/Local/Temp/scp46755/home/landz/cms.config.php",
+		"/C/Users/liu/AppData/Local/Temp/scp46115/home/landz/house.php",
+		"/C/Users/liu/AppData/Local/Temp/scp48570/home/landz/db.config.php",
+		"/C/Users/liu/AppData/Local/Temp/scp44139/home/landz/Home/Lib/ORG/include/Client.php",
+		"/C/Users/liu/AppData/Local/Temp/scp43884/home/landz/Home/Lib/Action/IndexAction.class.php",
+		"/C/Users/liu/AppData/Local/Temp/scp47770/home/landz/agent.php",
+		"/C/Users/liu/AppData/Local/Temp/scp47275/home/landz/admin.php",
+		"/C/Users/liu/AppData/Local/Temp/scp46515/home/landz/info.php",
+		"/C/Users/liu/AppData/Local/Temp/scp34978/home/landz/db.config.php",
+		"/D/wamp/www/丽兹行/src/Ydzy/UserBundle/Controller/DefaultController.php",
+		"/D/wamp/www/丽兹行/src/Ydzy/AdminBundle/Service/LayoutPush.php",
+		"/D/wamp/www/丽兹行/src/Ydzy/AdminBundle/Resources/config/services.yml",
+		"/C/Users/liu/Desktop/wx_sample.php",
+		"/C/Users/liu/Desktop/l丽兹行/app_dev.php",
+		"/C/Users/liu/Desktop/l丽兹行/VpnDatebase.php",
+		"/D/wamp/www/testmysql.php",
+		"/C/Users/liu/Desktop/l丽兹行/curlGet.php",
+		"/D/wamp/www/jx/wanji/jx/src/Ydzy/AdminBundle/Controller/PushController.php",
+		"/C/Users/liu/Desktop/l丽兹行/php/php 一定要看read me文件/UTF8_mdSmsSend_u.php",
+		"/C/Users/liu/Desktop/l丽兹行/php/php 一定要看read me文件/Register.php",
+		"/C/Users/liu/Desktop/l丽兹行/php/php 一定要看read me文件/post _mt.php",
+		"/C/Users/liu/Desktop/l丽兹行/php/php 一定要看read me文件/GetBalance.php",
+		"/C/Users/liu/Desktop/素材/iscroll-master/demos/horizontal/index.html",
+		"/C/Users/liu/Desktop/l丽兹行/lnmp-install.log",
+		"/C/Users/liu/Documents/landz_access.log",
+		"/D/wamp/www/web/src/Ydzy/ApiBundle/Controller/CommunityController.php",
+		"/C/Users/liu/Desktop/l丽兹行/lzh_weixin.php",
+		"/D/wamp/www/cardbook/src/Mirror/TestBundle/Controller/DefaultController.php",
+		"/D/wamp/www/cardbook/src/Mirror/CardBundle/Controller/UserController.php",
+		"/D/wamp/www/cardbook/src/Mirror/CardBundle/Service/Security.php",
+		"/C/Users/liu/Desktop/map.html",
+		"/C/Users/liu/Desktop/新建文本文档.html",
+		"/D/wamp/www/cardbook/src/Mirror/CardBundle/Controller/EventController.php",
+		"/D/wamp/www/cardbook/src/Mirror/OamBundle/Controller/UserController.php",
+		"/D/wamp/www/web/src/Ydzy/ApiBundle/Controller/CollectionController.php",
+		"/D/wamp/www/web/src/Ydzy/JxBundle/Resources/views/Default/androidsharelist.html.twig",
+		"/C/Users/liu/Desktop/RequestCore.php",
+		"/C/Users/liu/Desktop/index.html",
+		"/D/wamp/www/web/src/Ydzy/ApiBundle/Controller/SellController.php",
+		"/D/wamp/www/web/src/Ydzy/AdminBundle/Resources/views/Default/editsell.html.twig",
+		"/D/wamp/www/web/src/Ydzy/ApiBundle/Controller/OneController.php",
+		"/D/wamp/www/jx/wanji/jx/src/Ydzy/JxBundle/Resources/views/Default/weblunbo.html.twig",
+		"/C/Users/liu/Desktop/weblunbo.html.twig",
+		"/C/Users/liu/Desktop/jquery.mobile-1.4.2/demos/body-bar-classes/index.html",
+		"/D/wamp/www/web/web/bundles/jxbundle/js/hhSwipe.js",
+		"/D/wamp/www/jx/wanji/jx/src/Ydzy/JxBundle/Resources/views/Default/hotlist.html.twig",
+		"/D/wamp/www/jx/wanji/jx/src/Ydzy/JxBundle/Resources/views/Default/cslist.html.twig",
+		"/D/wamp/www/jx/wanji/jx/src/Ydzy/ApiBundle/Controller/MachineController.php",
+		"/D/wamp/www/web/landz/Symfony/src/Ydzy/ApiBundle/Controller/CollectionController.php",
+		"/D/wamp/www/web/src/Ydzy/ApiBundle/Controller/ShareController.php",
+		"/D/wamp/www/jx/wanji/jx/src/Ydzy/AdminBundle/Resources/views/Default/menu.html.twig",
+		"/D/wamp/www/web/src/Ydzy/JxBundle/Resources/views/Default/sell_info.html.twig",
+		"/C/Users/liu/Desktop/map.html.twig",
+		"/C/Users/liu/Desktop/sell_info.html.twig",
+		"/D/wamp/www/web/landz/Symfony/src/Ydzy/ApiBundle/Controller/CommunityController.php",
+		"/D/wamp/www/jx/jx.card-books.com/Symfony/src/Acme/DemoBundle/Controller/DemoController.php",
+		"/D/wamp/www/jx/jx.card-books.com/Symfony/src/Ydzy/ApiBundle/Controller/AreaControler.php",
+		"/D/wamp/www/jx/wanji/jx/web/bundles/jxbundle/js/my.js",
+		"/D/wamp/www/jx/wanji/jx/web/bundles/jxbundle/js/slide.js",
+		"/C/Users/liu/Desktop/Slides-SlidesJS-3/examples/basic-fade/index.html",
+		"/C/Users/liu/Desktop/素材/一款移动端左右自动滚动的图片轮播jQuery插件/index.html",
+		"/D/wamp/www/jx/jx.card-books.com/Symfony/src/Ydzy/ApiBundle/Controller/MachineController.php",
+		"/D/wamp/www/jx/jx.card-books.com/Symfony/src/Ydzy/ApiBundle/Controller/ImageController.php",
+		"/C/Users/liu/Desktop/map~~.html",
+		"/C/Users/liu/Desktop/dedesqli.class.php",
+		"/D/wamp/www/jx/wanji/jx/src/Ydzy/JxBundle/Resources/views/Jx/content.html.twig",
+		"/D/wamp/www/cardbook/src/Mirror/CardBundle/Controller/CardController.php",
+		"/D/wamp/www/jx/wanji/jx/src/Ydzy/ApiBundle/Controller/AreaController.php",
+		"/D/wamp/www/jx/wanji/jx/src/Ydzy/JxBundle/Resources/views/Jx/index.html.twig",
+		"/C/Users/liu/Desktop/autoload_real.php",
+		"/C/Users/liu/Desktop/ClassLoader.php",
+		"/C/Users/liu/Desktop/autoload_namespaces.php",
+		"/C/Users/liu/Desktop/autoload_classmap.php",
+		"/D/wamp/www/jx/jx.card-books.com/Symfony/vendor/composer/autoload_namespaces.php",
+		"/D/wamp/www/jx/jx.card-books.com/Symfony/vendor/composer/autoload_real.php",
+		"/D/wamp/www/swf/upload.php",
+		"/D/wamp/www/swf/swfupload/swfupload.js",
+		"/D/wamp/www/swf/js/fileprogress.js",
+		"/D/wamp/www/swf/js/handlers.js",
+		"/D/wamp/www/swf/js/swfupload.queue.js",
+		"/D/wamp/www/test.php",
+		"/D/wamp/www/jx/wanji/jx/src/Ydzy/JxBundle/Resources/views/Jx/job.html.twig",
+		"/C/Users/liu/Desktop/素材/腾讯jquery图片浏览代码/index.html",
+		"/C/Users/liu/Desktop/素材/横向的JS相册效果/index.html",
+		"/C/Users/liu/Desktop/重型机械/688/index.html",
+		"/C/Users/liu/Desktop/php.ini",
+		"/C/Users/liu/Documents/php.ini",
+		"/D/wamp/www/jx/wanji/jx/src/Ydzy/JxBundle/Resources/views/Jx/layout.html.twig",
+		"/C/Users/liu/Desktop/重型机械/688/css/index.css",
+		"/C/Users/liu/Desktop/重型机械/688/js/script.js",
+		"/C/Users/liu/Desktop/素材/腾讯jquery图片浏览代码/css/lrtk.css",
+		"/C/Users/liu/Desktop/素材/腾讯jquery图片浏览代码/js/slide.js",
+		"/C/Users/liu/Desktop/php",
+		"/D/wamp/www/jx/wanji/jx/src/Ydzy/AdminBundle/Resources/views/Default/register.html.twig",
+		"/D/wamp/www/cardbook/src/Mirror/CardBundle/Controller/ApplicationController.php",
+		"/D/wamp/www/bbs/source/plugin/iphone/forum.class.php",
+		"/D/wamp/www/bbs/source/plugin/iphone/ubb.class.php",
+		"/D/wamp/www/www/index.php",
+		"/D/wamp/www/www/drag/index.php",
+		"/D/wamp/www/4j/src/ydzy/UIBundle/Resources/views/gg/layout.html.twig",
+		"/D/wamp/www/jx/wanji/jx/src/Ydzy/UserBundle/Controller/DefaultController.php",
+		"/C/Users/liu/Desktop/素材/page.html",
+		"/C/Users/liu/Desktop/map.html.twig2",
+		"/D/wamp/www/4j/src/ydzy/UIBundle/Resources/views/Default/index.html.twig",
+		"/D/wamp/www/4j/src/ydzy/UIBundle/Resources/views/Default/fenxiang.html.twig"
+	],
+	"find":
+	{
+		"height": 36.0
+	},
+	"find_in_files":
+	{
+		"height": 93.0,
+		"where_history":
+		[
+			"C:\\Users\\liu\\Desktop\\l丽兹行\\web",
+			"D:\\wamp\\www\\cardbook",
+			"D:\\wamp\\www",
+			"C:\\Users\\liu\\Desktop\\SWFUpload v2.2.0 中文汉化版",
+			"D:\\wamp\\www\\jx\\wanji\\jx",
+			"D:\\wamp\\www\\swf,C:\\Users\\liu\\Desktop\\SWFUpload v2.2.0.1 Core",
+			"D:\\wamp\\www\\swf,,C:\\Users\\liu\\Desktop\\SWFUpload v2.2.0.1 Core",
+			"D:\\wamp\\www\\swf",
+			"C:\\Users\\liu\\Desktop\\重型机械\\jx\\Symfony",
+			"C:\\Users\\liu\\Desktop\\重型机械\\jx",
+			"D:\\wamp\\www\\jx",
+			"D:\\wamp\\www\\cardbook",
+			"C:\\Users\\liu\\Desktop\\symnew\\",
+			"C:\\Users\\liu\\Desktop\\symnew\\Symfony\\vendor\\friendsofsymfony\\",
+			"C:\\Users\\liu\\Desktop\\symnew\\Symfony\\vendor\\friendsofsymfony\\user-bundle\\FOS\\UserBundle\\Resources\\translations",
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"Dstart",
+			"dianj",
+			"dianj.",
+			"dianj",
+			"\"",
+			"\\n",
+			"/n",
+			" ",
+			"open_type",
+			"open",
+			"is_mobile",
+			"is_mo",
+			"m.",
+			"is_mobile",
+			"mobile",
+			"	",
+			"respCode",
+			"changeBusinessDistrict",
+			"totalheight",
+			"dianj",
+			"move",
+			" \"",
+			"',\"\"",
+			"json->get('",
+			" = ",
+			" =",
+			" : ",
+			"=",
+			"\").val();",
+			"$(\"#",
+			"var ",
+			"').val(data.",
+			");",
+			"$('#",
+			"::",
+			"OTHER_TYPE_ZZLX",
+			" ,",
+			"\")",
+			"?\"\":",
+			"?\"\"",
+			"',",
+			"('",
+			"$json->get",
+			" =",
+			"),",
+			"')",
+			"'",
+			"time",
+			" ",
+			"\\n",
+			"exif",
+			"->files",
+			"files",
+			"getClientOriginalName",
+			"div",
+			"slideshowItem",
+			"href=\"?page='+i+'",
+			"?page='+i+'",
+			"#",
+			"?page='+i+'",
+			"onclick=\"loadpage(this)\"",
+			"href=\"?page='+i+'\"",
+			"span",
+			"?page='+i+'",
+			"mode",
+			"},{",
+			"sql:",
+			"\"",
+			"},{",
+			"\"sql\":",
+			"]",
+			"[",
+			"\"",
+			"\";\"",
+			"\"sql\":",
+			"},{",
+			"]",
+			"[",
+			"dropdown-menu",
+			"dropdown-menu>li>a:hover",
+			"XMLHttpRequest.status",
+			"{{ url",
+			"{{",
+			"serverData.substring(5).split(\",\")",
+			"{{",
+			"TestImageNoText_65x29",
+			"uploadSuccess",
+			"phone",
+			"405",
+			"fileDialogComplete",
+			"var tableObj = listObj.getElementsByTagName(\"table\")",
+			"fileDialogComplete",
+			"filename",
+			"上传成功",
+			"center",
+			"startUpload",
+			"startupload",
+			"\"",
+			"login_check",
+			"login_chec",
+			"  ",
+			"\"",
+			"http://www.lanrentuku.com",
+			"http",
+			"login_check",
+			"/app_dev.php/login_check",
+			"app_dev.php/login",
+			"app_dev.php/login_check",
+			"史上规模最大的",
+			"logout",
+			"numberbox",
+			"输入内容必须",
+			"length[1,64]",
+			"this field is required",
+			"User account is disabled",
+			"user",
+			"[$i]",
+			"emptyempty",
+			"″",
+			"”",
+			"“",
+			"logan",
+			"User account is disabled",
+			"User account is disabled.",
+			"dg",
+			"onClickRow",
+			"CURLOPT_CUSTOMREQUEST",
+			"set_curlopts"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"'",
+			"",
+			",\"",
+			"==\"\"?\"\":\"  \"",
+			"",
+			" = (",
+			"_sql =",
+			":",
+			",",
+			"",
+			" = $(\"#",
+			"\").val();",
+			"var ",
+			":",
+			", ",
+			",\")",
+			"?\"\":\"  \"",
+			"?\"\":",
+			"==\"\"?",
+			"($",
+			"",
+			"_sql =",
+			");",
+			"',\"\")",
+			"",
+			"li",
+			"",
+			"#",
+			"?page='+i+'",
+			"#",
+			"onclick=\"loadpage(this)\" title='+i+'",
+			"href=\"?page='+i+'\" onclick=\"loadpage()\"",
+			"li",
+			"#",
+			";",
+			"",
+			";",
+			"",
+			";",
+			"",
+			"\\\"",
+			"",
+			"\\\"",
+			"empty",
+			"\""
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": false
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 28.0
+	},
+	"input":
+	{
+		"height": 35.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.sftp":
+	{
+		"height": 0.0
+	},
+	"project": "sftp-config.sublime-project",
+	"replace":
+	{
+		"height": 66.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"selected_items":
+		[
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 191.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

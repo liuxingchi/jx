@@ -1,0 +1,119 @@
+#default controller
+user_index:
+    pattern:  /
+    defaults: { _controller: YdzyJxBundle:Jx:index }
+user_download:
+    pattern:  /d
+    defaults: { _controller: YdzyApiBundle:Version:downloadWeb }
+user_default_profile:
+    pattern:  /userprofile
+    defaults: { _controller: YdzyUserBundle:Default:profile }
+
+user_default_login:
+    pattern:  /userlogin
+    defaults: { _controller: YdzyUserBundle:Default:login }
+user_default_followme:
+    pattern:  /followme
+    defaults: { _controller: YdzyUserBundle:Default:FollowMe }
+user_default_gettoken:
+    pattern:  /gettoken
+    defaults: { _controller: YdzyUserBundle:Default:GetToken }
+user_default_userprofilebyid:
+    pattern:  /userprofilebyid
+    defaults: { _controller: YdzyUserBundle:Default:userprofile }
+user_default_gettelvalidate:
+    pattern:  /gettelvalidate
+    defaults: { _controller: YdzyUserBundle:Default:GetTelValidate }
+
+user_default_active:
+    pattern:  /active
+    defaults: { _controller: YdzyUserBundle:Default:active }
+
+user_default_deactive:
+    pattern:  /deactive
+    defaults: { _controller: YdzyUserBundle:Default:deactive }
+
+user_default_changeprofile:
+    pattern:  /changeprofile
+    defaults: { _controller: YdzyUserBundle:Default:ChangeProfile }
+user_default_changeprofilebyid:
+    pattern:  /changeprofilebyid
+    defaults: { _controller: YdzyUserBundle:Default:ChangeProfileById }
+
+
+user_default_desave:
+    pattern:  /desave
+    defaults: { _controller: YdzyUserBundle:Default:desave }
+  
+user_default_sendvalidate:
+    pattern:  /usersendvalidate
+    defaults: { _controller: YdzyUserBundle:Default:sendValidate }
+    
+user_default_register:
+    pattern:  /userregister
+    defaults: { _controller: YdzyUserBundle:Default:register }
+    
+user_default_adminregister:
+    pattern:  /adminregister
+    defaults: { _controller: YdzyUserBundle:Default:AdminRegister }
+
+user_default_getpasswordtoken:
+    pattern:  /getpasswordtoken
+    defaults: { _controller: YdzyUserBundle:Default:GetPasswordToken }
+
+user_default_changepassword:
+    pattern:  /userchangepassword
+    defaults: { _controller: YdzyUserBundle:Default:changepassword }
+
+
+#user controller
+ydzy_create_user:
+    pattern:  /user/create
+    defaults: { _controller: YdzyUserBundle:User:create }
+    
+ydzy_retrieve_user:
+    pattern:  /user/retrieve
+    defaults: { _controller: YdzyUserBundle:User:retrieve }    
+    
+ydzy_list_user:
+    pattern:  /user/list
+    defaults: { _controller: YdzyUserBundle:User:list }    
+    
+ydzy_edit_user:
+    pattern:  /user/edit
+    defaults: { _controller: YdzyUserBundle:User:edit }    
+    
+ydzy_delete_user:
+    pattern:  /user/delete
+    defaults: { _controller: YdzyUserBundle:User:delete }    
+    
+ydzy_login_user:
+    pattern:  /user/login
+    defaults: { _controller: YdzyUserBundle:User:login }  
+ydzy_logout_user:
+    pattern:  /user/logout
+    defaults: { _controller: YdzyUserBundle:User:logout }  
+
+
+
+
+
+#fosuserbundle    
+fos_user_security:
+    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+
+fos_user_profile:
+    resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
+    prefix: /profile
+
+fos_user_register:
+    resource: "@FOSUserBundle/Resources/config/routing/registration.xml"
+    prefix: /register
+
+fos_user_resetting:
+    resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
+    prefix: /resetting
+
+fos_user_change_password:
+    resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
+    prefix: /profile

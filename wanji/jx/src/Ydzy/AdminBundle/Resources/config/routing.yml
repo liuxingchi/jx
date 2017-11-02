@@ -1,0 +1,130 @@
+ydzy_admin_homepage:
+    pattern:  /
+    defaults: { _controller: YdzyAdminBundle:Default:index }
+ydzy_admin_welcome:
+    pattern:  /welcome
+    defaults: { _controller: YdzyAdminBundle:Default:welcome }
+
+ydzy_admin_register:
+    pattern:  /register
+    defaults: { _controller: YdzyAdminBundle:Default:register }
+
+ydzy_admin_main:
+    pattern:  /main
+    defaults: { _controller: YdzyAdminBundle:Default:main }
+
+ydzy_admin_menu:
+    pattern:  /menu
+    defaults: { _controller: YdzyAdminBundle:Default:menu }
+
+ydzy_admin_machine_pre_rent:
+    pattern:  /machine/pre_rent
+    defaults: { _controller: YdzyAdminBundle:Machine:prerent }
+
+ydzy_admin_machine_pre_sale:
+    pattern:  /machine/pre_sale
+    defaults: { _controller: YdzyAdminBundle:Machine:presale }
+
+
+ydzy_admin_machine_search:
+    pattern:  /machine/search
+    defaults: { _controller: YdzyAdminBundle:Machine:search }
+
+ydzy_admin_brand_manage:
+    pattern:  /brand/manage
+    defaults: { _controller: YdzyAdminBundle:Brand:manage }
+
+ydzy_admin_brand_modify:
+    pattern:  /brand/modify
+    defaults: { _controller: YdzyAdminBundle:Brand:modify }
+
+ydzy_admin_brand_add:
+    pattern:  /brand/add
+    defaults: { _controller: YdzyAdminBundle:Brand:add }
+
+ydzy_admin_pre_machine:
+    pattern:  /machine/managemy
+    defaults: { _controller: YdzyAdminBundle:Machine:manageMy }
+
+ydzy_admin_pre_machine_search:
+    pattern:  /machine/mysearch
+    defaults: { _controller: YdzyAdminBundle:Machine:searchMy }
+
+ydzy_admin_pre_machine_manage:
+    pattern:  /machine/manage
+    defaults: { _controller: YdzyAdminBundle:Machine:manage }
+
+ydzy_admin_pre_machine_addqq:
+    pattern:  /machine/addqq
+    defaults: { _controller: YdzyAdminBundle:Machine:addqq }
+
+ydzy_admin_pre_machine_qq:
+    pattern:  /machine/qq
+    defaults: { _controller: YdzyAdminBundle:Machine:qq }
+
+ydzy_admin_pre_machine_qqcount:
+    pattern:  /machine/qqcount
+    defaults: { _controller: YdzyAdminBundle:Machine:qqcount }
+
+ydzy_admin_pre_machine_devide:
+    pattern:  /machine/devide
+    defaults: { _controller: YdzyAdminBundle:Machine:devide }
+
+ydzy_admin_machine_add:
+    pattern:  /machine/add
+    defaults: { _controller: YdzyAdminBundle:Machine:add }
+
+ydzy_admin_machine_modify:
+    pattern:  /machine/modify
+    defaults: { _controller: YdzyAdminBundle:Machine:modify }
+
+ydzy_admin_machine_manage_images:
+    pattern:  /machine/manage_images
+    defaults: { _controller: YdzyAdminBundle:Machine:manageimages }
+
+ydzy_admin_machine_pre_modify:
+    pattern:  /machine/pre_modify
+    defaults: { _controller: YdzyAdminBundle:Machine:premodify }
+
+ydzy_admin_machine_manage_modify:
+    pattern:  /machine/manage_modify
+    defaults: { _controller: YdzyAdminBundle:Machine:managemodify }
+
+ydzy_admin_role_manage:
+    pattern:  /machine/manage_role
+    defaults: { _controller: YdzyAdminBundle:Machine:managerole }
+
+ydzy_admin_user_modify:
+    pattern:  /machine/user_modify
+    defaults: { _controller: YdzyAdminBundle:Machine:usermodify }
+
+ydzy_admin_push:
+    pattern:  /push
+    defaults: { _controller: YdzyAdminBundle:Push:Push }
+push_htmlpage:
+    pattern:  /htmlpage
+    defaults: { _controller: YdzyAdminBundle:Push:save }
+ydzy_admin_version:
+    pattern:  /version
+    defaults: { _controller: YdzyAdminBundle:Version:add }
+ydzy_admin_config:
+    pattern:  /config
+    defaults: { _controller: YdzyAdminBundle:Config:list }
+ydzy_admin_createversion:
+    pattern:  /version/createversion
+    defaults: { _controller: YdzyAdminBundle:Version:Createversion }
+ydzy_admin_addversion:
+    pattern:  /version/addversion
+    defaults: { _controller: YdzyAdminBundle:Version:Addversion }
+ydzy_admin_tags:
+    pattern:  /tags
+    defaults: { _controller: YdzyAdminBundle:Push:Tags }
+ydzy_admin_pushdel:
+    pattern:  /pushdel
+    defaults: { _controller: YdzyAdminBundle:Push:del }
+ydzy_admin_leaveword:
+    pattern:  /leaveword
+    defaults: { _controller: YdzyAdminBundle:Leave:leaveword }
+ydzy_admin_pic:
+    pattern:  /pic
+    defaults: { _controller: YdzyAdminBundle:Push:pic }

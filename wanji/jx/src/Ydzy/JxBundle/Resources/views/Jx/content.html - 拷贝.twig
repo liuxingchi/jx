@@ -1,0 +1,226 @@
+{% extends 'YdzyJxBundle:Jx:layout.html.twig' %}
+{% block body %}
+<?php ?>
+<script type="text/javascript" src="{{ asset('bundles/jxbundle/js/slide.js') }}"></script>
+<script>
+var timer = null;
+var offset = 5000;
+var index = 0;
+var maxIndex  = 6;
+//大图交替轮换
+function slideImage(i){
+    var id = 'big_'+ i;
+    $('#'+ id)
+        .animate({opacity: 1}, 800, '').show()
+        .siblings(':visible')
+        .animate({left: 'hide'},'fast',function(){
+            $(this).animate({opacity: 0}, 800).hide();
+        });
+}
+function auto(){
+	index++;
+    if (index > $("#image_length").val()){
+        index = 0;
+    }
+	slideImage(index);
+    timer = window.setTimeout(auto, offset);
+}
+
+$(function(){ 
+loadnav();
+var machine_id = $("#machine_id").val();
+var json = 
+            {
+              "machine_id": machine_id,
+            };
+
+  ajaxPost(
+    'app_dev.php/api/machine/info',
+    json,
+    function(data, textStatus){
+		if(data.mark ==0){if(data.rent_by_month ==0){var sale_price = "面议";}else{var sale_price = data.rent_by_month+"万/月";}if(data.rent_by_num ==0){var rent_by_num = "";}else{var rent_by_num = data.rent_by_num+"万/台";} $("#rent_by_num").html(rent_by_num);}
+		if(data.mark ==1){if(data.sale_price ==0){var sale_price = "面议";}else{var sale_price = data.sale_price+"万";}}
+		if(data.workhours ==0){var workhours = "";}else{var workhours = data.workhours+"小时";}
+		if(data.factory_year =="0年月"){var factory_year = "";}else{var factory_year = data.factory_year;}
+		if(data.tonn ==0){var tonn = "";}else{var tonn = data.tonn+"吨";}
+	  $("#machine_title").html(data.machine_name);
+	  $("#sale_price").html(sale_price);
+	  $("#brand_name").html(data.brand_name);
+	  $("#brand_model").html(data.brand_model);
+	  $("#tonn").html(tonn);
+	  $("#workhours").html(workhours);
+	  $("#factory_year").html(factory_year);
+	  $("#province").html(data.province);
+	  $("#nickname").html(data.linker);
+	  $("#phone").html(data.linker_tel);
+	  $("#description").html(data.description);
+	  //百度地图
+		lat = data.lat;
+		lng = data.lng;
+		if(lat==0){
+			$("#map").html("<img  src='http://api.map.baidu.com/staticimage?markers="+lng+","+lat+"&width=1020&height=429&markerStyles=l&zoom=14'/>");
+			}else{
+				$("#map").html("<a href='/app_dev.php/jx/map/"+lng+","+lat+"' target='_blank'><img  src='http://api.map.baidu.com/staticimage?markers="+lng+","+lat+"&width=1020&height=429&markerStyles=l&zoom=14'/> </a>");
+				}
+		//alert(data.image.length);
+	  
+	  $("#image_length").val(data.image.length);
+	  var image2_length = data.image2.length;
+	  var image_length = data.image.length;
+	  
+	   for(var i=0;i<data.image.length;i++){
+	   	var img_big = (data.image[i].url).substring(0,48);
+		var  postfix = (data.image[i].url).substring(49);
+	   	var big = img_big+"0"+ postfix;
+	     $("#"+machine_id+i).attr("src",data.image[i].url);
+		 $("#image_big").append("<img src='"+big+"' height='600px' width='800px' id='big_"+i+"'/>");
+		 $("#image_small_list").append("<li><a href='#' onclick='change(this)' rel='"+i+"'><img width='86px' height='57px' src='"+data.image[i].url+"'/></a></li>");
+		}
+		
+		if(image2_length!=0){
+			maxIndex = image2_length+image_length;
+			for(var i=image_length;i<maxIndex;i++){
+			
+			var img_big = (data.image2[i-image_length].url).substring(0,48);
+			var  postfix = (data.image2[i-image_length].url).substring(49);
+			var big = img_big+"0"+ postfix;
+			
+			$("#"+machine_id+i).attr("src",data.image2[i-image_length].url);
+			
+			$("#image_big").append("<img src='"+big+"' height='600px' width='800px' id='big_"+i+"'/>");
+			$("#image_small_list").append("<li><a href='#' onclick='change(this)' rel='"+i+"'><img width='86px' height='57px'  src='"+data.image2[i-image_length].url+"'/></a></li>");
+				}
+			
+			}
+	   
+    },
+    function(XMLHttpRequest, textStatus, errorThrown){
+      alert("出现错误，稍后请重试");
+    }
+  );
+auto();
+$("#image_area").mouseover(function(){
+	$(".bigbtnPrev").add(".bigbtnNext").show();
+	});
+$("#image_area").mouseout(function(){
+	$(".bigbtnPrev").add(".bigbtnNext").hide();
+	});
+$('#big_play_prev').add("#big_play_next").click(function(){
+            if (timer){
+                clearTimeout(timer);
+            }
+            var id = this.id;
+            if (id == 'play_prev') {
+                index--;
+                if (index < 0) index = maxIndex;
+            }else{
+                index++;
+                if (index > maxIndex) index = 0;
+            }
+            slideImage(index);
+            timer = window.setTimeout(auto, offset);
+        });	
+
+
+$('#image_small_list').bxCarousel({
+		display_num: 4, 
+		move: 1,
+		margin: 10 
+	});
+$('#image_small_list li').click(function(){
+	alert("there");
+	});	
+	
+
+});
+function change(oClick){
+	alert("here");
+	if (timer) {
+		clearTimeout(timer);
+	}                
+	var index = oClick.rel;
+	slideImage(index); 
+	timer = window.setTimeout(auto, offset);  
+	this.blur(); 
+};
+	
+</script>
+<!--列表开始-->
+  <div class="col-sm-12" id="list">
+  <input type="hidden" value= "{{id}}" id="machine_id"/>
+  <input type="hidden" value= "" id="image_length"/>
+  <input type="hidden" value= "" id="image2_length"/>
+   <div  id="top">
+		<center><span id="machine_title"></span></center>
+   </div>
+   <div class="col-sm-8" style="max-width:630px; margin-bottom:10px;">
+   	<div class="col-sm-4" style="margin:0; padding:0;"><img id="{{id}}0" width="181px" height="121px" src="{{ asset('bundles/jxbundle/images/1.jpg') }}"></div>
+    <div class="col-sm-4" style="margin:0; padding:0;"><img id="{{id}}1" width="181px" height="121px" src="{{ asset('bundles/jxbundle/images/1.jpg') }}"></div>
+    <div class="col-sm-4" style="margin:0; padding:0;"><img id="{{id}}2" width="181px" height="121px" src="{{ asset('bundles/jxbundle/images/1.jpg') }}"></div>
+   </div>
+   <div class="col-sm-5">
+   	<div class="col-sm-6"><span style="font-size:24px; color:#b40202 !important;"><span id="sale_price"></span><span id="rent_by_num" style="font-size:15px; color:#999; padding-left:10px;"></span></span></div></br></br></br>
+    <div class="col-sm-6"><span>品牌：<span id="brand_name"></span></span></div><div class="col-sm-6"><span>机型：<span id="brand_model"></span></span></div>
+   </div>
+   <div class="col-sm-8" style="max-width:630px; margin-bottom:10px;">
+   	<div class="col-sm-4" style="margin:0; padding:0;"><img id="{{id}}3"width="181px" height="121px" src="{{ asset('bundles/jxbundle/images/1.jpg') }}"></div>
+    <div class="col-sm-4" style="margin:0; padding:0;"><img id="{{id}}4"width="181px" height="121px" src="{{ asset('bundles/jxbundle/images/1.jpg') }}"></div>
+    <div class="col-sm-4" style="margin:0; padding:0;"><img id="{{id}}5"width="181px" height="121px" src="{{ asset('bundles/jxbundle/images/1.jpg') }}"></div>
+   </div>
+   <div class="col-sm-5">
+	<div class="col-sm-6"><span>小时数：<span id="workhours"></span></span></div><div class="col-sm-6"><span>出厂日期：<span id="factory_year"></span></span></div></br></br></br>
+	<div class="col-sm-6"><span>吨位：<span id="tonn"></span></span></div><div class="col-sm-6"><span>所在地：<span id="province"></span></span></div>
+   </div>
+   <div class="col-sm-8" style="max-width:630px;">
+   	<div class="col-sm-4" style="margin:0; padding:0;"><img id="{{id}}6" width="181px" height="121px" src="{{ asset('bundles/jxbundle/images/1.jpg') }}"></div>
+    <div class="col-sm-4" style="margin:0; padding:0;"><img id="{{id}}7" width="181px" height="121px" src="{{ asset('bundles/jxbundle/images/1.jpg') }}"></div>
+    <div class="col-sm-4" style="margin:0; padding:0;"><img id="{{id}}8" width="181px" height="121px" src="{{ asset('bundles/jxbundle/images/1.jpg') }}"></div>
+   </div>
+   <div class="col-sm-5" style="border: 1px solid #B40202; border-radius:3px; ">
+   	<span style="height:35px; line-height:35px;">发布人：<span id="nickname"></span></span><br>
+       <div>
+    	<div style="margin-top:15px; margin-bottom:15px;margin-left:5px; min-width:380px !important;">
+         <div style="float:left"><img src="{{ asset('bundles/jxbundle/images/phone.png') }}"></div>
+         <div style="float:left; margin-left:10px; margin-bottom:10px;">
+         	<span style="font-size:30px; color:#b40202 !important; font-weight:bold" id="phone"></span><br>
+         	<span style="color:#999 !important;">欢迎来电咨询，请说明是在万吉网上看见的</span>
+         </div>
+		</div>
+       </div>
+   </div>
+  </div>
+  <!--列表结束-->
+  <hr style="width:100%; color:#333 !important; size:5px;">
+  <!--center开始-->
+  <div class="col-sm-10" style="margin:0; margin-bottom:30px; padding:0;">
+  <!--大图-->
+  <div style="width:800px; height:600px; overflow:hidden;" id="image_area">
+  <p class="bigbtnPrev" style="display:none;"><span id="big_play_prev"></span></p>
+  <div id="image_big" style="text-align:center;"></div>
+  <p class="bigbtnNext"  style="display:none;"><span id="big_play_next"></span></p>
+  </div>
+  </div>
+  <div class="col-sm-2">
+  	<span style="font-family:'微软雅黑'; color:#b40202; font-size:18px;">详情介绍</span><br><br>
+    <div style="font-family:'微软雅黑'; font-size:18px; text-indent:2em !important; line-height:32px;" id="description"> </div>
+  </div><br>
+  <!--center结束-->
+  <!--轮换开始-->
+  <div style="clear:both"></div>
+   <div class="col-sm-12" style="margin:0; padding:0;">
+ 		
+        <div class="bx_wrap"><a class="prev" href="">left</a><a class="next" href="">right</a>
+ 	
+    	<div class="bx_container"><ul id="image_small_list"></ul></div>
+		
+        </div>
+	</div>
+    <br>
+  <br>
+  <!--轮换结束-->
+  <!--地图开始-->
+  <div style="font-size:24px; color:#b40202;font-family:'微软雅黑'; margin:20px 0px;padding-top:20px;">设备位置</div>
+ <div id="map" align="center"></div>
+  <!--地图结束-->
+  <hr style="width:100%; color:#333 !important; size:5px;">
+{% endblock %}

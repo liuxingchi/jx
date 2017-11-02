@@ -1,0 +1,188 @@
+		<script type="text/javascript" src="{{ asset('bundles/ydzyadmin/js/jquery-1.8.3.min.js') }}"></script>
+		<script type="text/javascript" src="{{ asset('bundles/ydzyadmin/js/jquery.json-2.3.min.js') }}"></script>
+
+		<script src="{{ asset('bundles/bianji/ckeditor/ckeditor.js') }}"></script>   <!-- 编辑的ckeditor.js引入 -->
+		<script src="{{ asset('bundles/bianji/ckfinder/ckfinder.js') }}"></script> 		<!-- 编辑的ckfinder.js引入 -->
+		<link href="{{ asset('bundles/ydzyadmin/css/bootstrapbutton.css') }}" rel="stylesheet">   <!-- 编辑的按钮样式引入 -->
+		<script type="text/javascript" src="http://documentcloud.github.io/backbone/backbone-min.js"></script>
+		<script type="text/javascript" src="{{ asset('bundles/ydzyadmin/js/messenger.js') }}"></script>
+		<link rel="stylesheet" type="text/css" href="{{ asset('bundles/ydzyadmin/css/messenger.css') }}" />
+		<link rel="stylesheet" type="text/css" href="{{ asset('bundles/ydzyadmin/css/messenger-theme-air.css') }}" />
+
+		<link rel="stylesheet" href="{{ asset('editor/themes/default/default.css') }}" />
+		<link rel="stylesheet" href="{{ asset('editor/plugins/code/prettify.css') }}" />
+		<script charset="utf-8" src="{{ asset('editor/kindeditor1.js') }}"></script>
+		<script charset="utf-8" src="{{ asset('editor/lang/zh_CN.js') }}"></script>
+		<script charset="utf-8" src="{{ asset('editor/plugins/code/prettify.js') }}"></script>
+		
+		
+		<link href="{{ asset('bundles/ydzyadmin/css/page.css') }}" rel="stylesheet" type="text/css" />
+		<link href="{{ asset('bundles/ydzyadmin/js/jquery-ui-1.8.23.custom/css/ui-lightness/jquery-ui-1.8.23.custom.css') }}" rel="stylesheet" type="text/css"/>
+		<link href="{{ asset('bundles/ydzyadmin/js/jquery-easyui-1.3/themes/default/easyui.css') }}" rel="stylesheet" type="text/css"/>
+		<link href="{{ asset('bundles/ydzyadmin/js/jquery-easyui-1.3/themes/icon.css') }}" rel="stylesheet" type="text/css"/>
+		<script type="text/javascript">
+				KindEditor.ready(function (K) {
+					var editor1 = K.create('textarea[id="content1"]', {
+						afterBlur: function(){this.sync();}
+					});
+				});
+				var PID ="";
+				function push_post()
+				{
+						
+						if(PID==""){
+								alert("赶紧添加标题、内容并且保存。。。");
+								return false;
+						}
+						var title = $('#title').val();
+						var content = $('#content').val();
+						var select = $('#tag option:checked').text();
+						var range="";//用户范围
+						var zt = document.getElementsByName("zt");
+						for(var i=0;i<zt.length;i++){
+					 			if(zt[i].checked) {
+					 					range = zt[i].value;
+								}
+						}
+						var type= "";//设备类型
+						
+						//----------------------------------------
+								//alert($("#tag").val());
+								//return false;
+						//----------------------------------------
+						
+						
+						
+						for(i=0;i<2;i++)
+						{
+								if(document.getElementsByName("selected")[i].checked==true)
+								{
+				  					if(type==""){
+				  							type=type+document.getElementsByName("selected")[i].value;
+				  					}else{
+				  							type=type+""+document.getElementsByName("selected")[i].value;
+										}
+								}
+						}
+						var action="";//通知后行为
+						var xw = document.getElementsByName("xw");
+						for(var i=0;i<xw.length;i++){
+					 			if(xw[i].checked) {
+					 				action = xw[i].value;
+								}
+						}
+						var data={title:title,content:content,select:select,type:type,range:range,action:action,pageid:PID};
+						$.ajax({
+								type:"POST", 
+								url:'/app_dev.php/admin/push', 
+								dataType:"json",
+								data:$.toJSON(data),
+								timeout:5000,
+								cache:true,
+								async:true,
+								success: function (data, textStatus) {
+										alert(data);
+								},
+								error: function(XMLHttpRequest, textStatus, errorThrown) {
+										if(XMLHttpRequest.status == 200)
+										{
+												alert(XMLHttpRequest.responseText);	
+										}  
+										else
+										{
+												$("#debugResult").html(XMLHttpRequest.responseText);
+												//alert("XMLHttpRequest.status="+XMLHttpRequest.status+"\ntextStatus="+textStatus+"\nerrorThrown="+errorThrown);
+										}
+								}
+						});
+				}
+		</script>
+		<?php ?>
+		<title>推送</title>
+		<style type="text/css">
+				li{ line-height:30px;}
+		</style>
+		<body>
+				<div class="page_title">
+						<span">推送通知</span>
+				</div>
+				<form name="f1">
+						<ul style="list-style:none">
+								<li class="bold">用户范围:
+										<input type="radio" name="zt" id="all" checked="checked" value="all">所有人
+										<input type="radio" name="zt" id="tags" value="tags">广播组
+										<select name="tag" id='tag'>
+												{% for value in tags %}
+														<option id="{{ value.name }}">{{ value.name }}</option>
+												{% endfor %}
+										</select>
+								</li>
+								<div></div>
+								<li>
+										<label class="bold">用户范围:</label>
+										<input type="checkbox" name="selected" value="3"><label class="bold">android</label>
+										<input type="checkbox" name="selected" value="4"><label class="bold">ios</label>
+								</li>
+								<li>
+										<label class="bold">推送标题:</label><input type="text" id="title" name="title" value="标题不超过20个字" onfocus="if (value =='标题不超过20个字'){value =''}" onblur="if (value ==''){value='标题不超过20个字'}" >
+								</li>
+								<li>
+										<label class="bold">推送摘要:</label><textarea style="height:60px;width:400px;" id="content" name="content" maxlength="500"></textarea>
+								</li>
+								<li class="bold">通知后续行为:
+								<!--	<input type="radio" name="xw" id="url" checked="checked" value="" onclick=" UE.getEditor('editor').setShow()">打开网页 -->
+										<input type="radio" name="xw" id="app"  value="app" onclick=" UE.getEditor('editor').setHide()">打开应用   
+								</li>
+								<!--  yemian start  -->
+						
+						 		新闻标题：<input id="pagetitle" name="pagetitle" type="text" style="width:600px;" value=""/>
+								<div><textarea id="content1" style="width: 730px; height: 500px; visibility: hidden;"></textarea></div>
+								<button id="button1" class="btn btn-large btn-block btn-primary" onclick="savepage();">保存修改</button>
+								<script>
+										$._messengerDefaults = {extraClasses: 'messenger-fixed messenger-theme-air messenger-on-top'}
+										function savepage()
+										{
+												//disableInput();
+												//showHint($('#hint'), 'msg', '正在保存页面信息，请稍候……', 0);  
+												$.globalMessenger().post({message: "正在保存页面信息，请稍候……", id: "Only-one-message"});
+												var pagetitle = document.getElementById('pagetitle').value;
+												var pagecontent = document.getElementById('content1').value;
+												//alert(pagetitle+pagecontent);
+												document.getElementById('button1').disabled = true;
+												var shuju = {
+														//"pagename":"sdfs",
+														"pagetitle":pagetitle,
+														"pagecontent":pagecontent
+												};
+												$.ajax({
+														type:"POST",  
+														url:"{{ url('push_htmlpage') }}",
+														dataType:"json",
+														data:$.toJSON(shuju),
+														timeout:5000,
+														cache:true,
+														async:true,
+														success: function (data, textStatus) {
+																PID = data.Pid;
+																$.globalMessenger().post({message: "保存成功！", id: "Only-one-message", type: "success", hideAfter: 1});
+																document.getElementById('button1').disabled = false;
+																$("#pagetitle").value("");
+																$("#content1").value("");
+														},
+														error: function(XMLHttpRequest, textStatus, errorThrown) {$.globalMessenger().post({message: "保存失败！", id: "Only-one-message", type: "error", hideAfter: 1});
+																document.getElementById('button1').disabled = false;
+														}
+												});
+										}
+								</script>
+								<p>
+										<a href="#" class="easyui-linkbutton l-btn" data-options="iconCls:'icon-search'"  onclick="push_post();">
+												<span class="l-btn-left">
+														<span class="l-btn-text">推送</span>
+												</span>
+										</a>
+								</p>
+						</ul>  
+				</form>
+		</body>
+

@@ -1,0 +1,267 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<?php ?>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>我的录入管理 - 管理平台</title>
+<link href="{{ asset('bundles/jxbundle/css/bootstrap.css') }}" rel="stylesheet">
+<script type="text/javascript" src="{{ asset('bundles/ydzyadmin/js/jquery-ui-1.8.23.custom/js/jquery-1.8.0.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/ydzyadmin/js/jquery.json-2.3.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/ydzyadmin/js/functions.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/ydzyadmin/js/jquery.cookie.js') }}"></script>
+<script src="{{ asset('bundles/jxbundle/js/bootstrap.js') }}"></script>
+<script src="{{ asset('bundles/jxbundle/js/managemypage.js') }}"></script>
+<script>
+var KEYWORD = "";
+function searchkeyword(){
+	var keyword = $("#keyword").val();
+	KEYWORD = keyword;
+	loadData($.cookie('uid'),0,0,KEYWORD);
+	}
+function picfirst(id,machine_id,i)
+{
+	
+		//目的将Machine_pic中的position设为1
+		//alert(id+"haha"+machine_id);
+		$.getJSON('http://42.96.204.119/picfirst.php?machine_id='+machine_id+'&id='+id+'&callback=?',function(data){
+			//alert("设置成功");
+			$("#wait").html("设置封面成功");
+			$("#img_"+i+" .bg").attr('style','');
+			$("#img_"+i+" .bg").html('');
+			$("#bg"+id).attr("style",'background-color:rgba(168, 161, 161, 0.79);text-align: center;color:blue;width:100%;height:24px;font-size:18px;line-height:24px;position: absolute; top: 0; left: 0;');
+			$("#bg"+id).html("封面");
+			});
+			setTimeout('$("#wait").html("")',1000);
+	
+}
+function ossPage(){
+	//$("#wait").html("开始上传图片，请勿操作。。。。。。。。。");
+	//并且删除img文件夹里所有的图片
+	$.getJSON('http://42.96.204.119/oss/demo/test.php?callback=?',function(data){
+				//$("#wait").html("图片删除成功");
+				});
+	var arrayObj = '';
+	$("#info tr").each(function(){
+	var text = $(this).children("td:first").text();
+	//alert(text);
+	if(text!=""&&text!='封面'){
+	//arrayObj.push(text);
+	arrayObj = arrayObj+','+text;
+	}
+   });
+   //alert(arrayObj.substr(1));
+   //alert(arrayObj[arrayObj.length-1]);
+   //print_array(arrayObj);
+	doSaveByPage(arrayObj.substr(1));	
+}
+function print_array(arr){
+	for(var key in arr){
+		if(typeof(arr[key])=='array'||typeof(arr[key])=='object'){//递归调用  
+			print_array(arr[key]);
+		}else{
+			document.write(key + ' = ' + arr[key] + '<br>');
+		}
+	}
+}
+function doSaveByPage(array){
+	$("#wait").html("正在上传当前页，请勿操作。。。。。。。。。");
+	json = {
+		array:array,
+		user:$('#uid').val(),
+		mark:1
+		}
+	ajaxPost(
+		'app_dev.php/api/machine/uploadByPage',
+		json,
+		function(data, textStatus){
+			ajaxPost(
+				'app_dev.php/api/machine/changeStatusByPage',
+				json,
+				function(data, textStatus){
+					$("#wait").html("设置状态成功");
+					loadData($.cookie('uid'),0,0,'');
+				},
+				function(XMLHttpRequest, textStatus, errorThrown){
+					$("#wait").html("设置状态失败");
+				}
+			);
+			
+			
+		},
+		function(XMLHttpRequest, textStatus, errorThrown){
+			switch(XMLHttpRequest.status)
+			{
+			case 400: //没数据
+				$("#wait").html("没有要上传的数据");
+				break;
+			default:
+			}
+		}
+	);
+}
+
+
+
+function oss(){
+	$.getJSON('http://42.96.204.119/oss/demo/test.php?callback=?',function(data){
+				$("#wait").html("图片删除成功");
+				});
+	doSave(1);			
+	}
+function doSave(index){
+	$("#wait").html("正在上传中，请勿操作。。。。。。。。。");
+	var user = $('#uid').val();
+	json = {
+		user:$('#uid').val(),
+		index:index
+		}
+	ajaxPost(
+		'app_dev.php/api/machine/upload',
+		json,
+		function(data, textStatus){
+			var nowindex = data.index;
+				var count = data.count;
+				$("#wait").html("机械总共有:"+count+"条，已上传"+nowindex*10+"条，请勿操作。。。。。。。。。");
+				if(nowindex*10<count){
+					doSave(nowindex+1);
+					}
+					else{
+							ajaxPost(
+									'app_dev.php/api/machine/changeStatus',
+									json,
+									function(data, textStatus){
+										$("#wait").html("删除源数据成功");
+										loadData($.cookie('uid'),0,0,'');
+									},
+									function(XMLHttpRequest, textStatus, errorThrown){
+										alert("删除源数据失败");
+									}
+								);
+						$("#wait").html("上传数据成功");
+						
+						}
+				
+			},
+			function(XMLHttpRequest, textStatus, errorThrown){
+				switch(XMLHttpRequest.status)
+				{
+				case 400: //没数据
+					$("#wait").html("没有要上传的数据");
+					break;
+				default:
+				}
+			}
+		);
+}
+function pass(machine_id){
+	//alert(machine_id);
+	json = {
+		machine_id:machine_id,
+		status:"0"
+		}
+	ajaxPost(
+		'app_dev.php/api/machine/updateadmin', //将Machine表里面的state变成0表示无效数据
+		json,
+		function(data, textStatus){
+			//alert("success");
+			//$('#'+machine_id).html("<font color='red'>不合格</font>");
+			$('.'+machine_id).remove();
+			//在抓取服务器中，删掉图片
+			$.getJSON('http://42.96.204.119/oss/demo/imgdel.php?machine_id='+machine_id+'&callback=?',function(data){
+				//alert(data.length);
+				//alert(data.status);
+				loadData($.cookie('uid'),0,0,KEYWORD);
+				});
+		},
+		function(XMLHttpRequest, textStatus, errorThrown){
+			alert("出现错误，请刷新重试");
+		}
+	);
+}
+function loadBtn(){
+	for(var i=0;i<10;i++){
+		var j = i+1;
+		$("#btn-group").append("<button type='button' class='btn btn-default' id='btn-"+i+"' onclick='loadData("+i+")'>第"+j+"组</button>");
+		}	
+	
+}
+function loadData(user,start,current,keyword){
+	page(current,user,keyword);
+	$('#info').html("");
+	$("#hint").html("<img src='/bundles/jxbundle/images/loading4.gif' width='50'/>");	
+	$.getJSON('http://42.96.204.119/apibyuser.php?start='+start+'&num=10&keyword='+keyword+'&user='+user+'&callback=?',function(data){
+		$("#hint").html("");
+			for(var i=0;i<data.length;i++){
+			if(data[i].statusid==1){
+				var status = "<a style='cursor:pointer' onclick='pass("+data[i].machine_id+")'><font color='green'>删除</font></a>";
+				}else if(data[i].statusid==2){
+					var status = "<font color='blue'>上传成功</font>";
+					}else{
+						var status = "<font color='red'>不合格</font>";
+						}
+			$('#info').append("<tr class="+data[i].machine_id+"><td>"+data[i].machine_id+"</td><td>"+data[i].machine_name+"</td><td>"+data[i].linker+"</td><td>"+data[i].linker_tel+"</td><td>"+data[i].category+"</td><td>"+data[i].brand_model+"</td><td>"+data[i].tonn+"</td><td>"+data[i].sale_price+"</td><td>"+data[i].creation_date+"</td><td>"+status+"</td></tr><tr class="+data[i].machine_id+"><td colspan=8 id='img_"+i+"'></td></tr>");
+			for(var j=0;j<data[i].pic.length;j++){
+				//alert(data[i].pic[j].id);
+				if(data[i].pic[j].position==1){
+				$('#img_'+i).append("<div style='position: relative;float:left;'><div class = 'bg' id='bg"+data[i].pic[j].id+"' style='background-color:rgba(168, 161, 161, 0.79);text-align: center;color:blue;width:100%;height:24px;font-size:18px;line-height:24px;position: absolute; top: 0; left: 0;'>封面</div><a style='cursor:pointer'><img src='http://img.wanjiwang.cn/"+data[i].pic[j].url+"' width='190' height='190'/></a></div>");
+				}else{
+				$('#img_'+i).append("<div style='position: relative;float:left;'><div class='bg' id='bg"+data[i].pic[j].id+"'></div><a style='cursor:pointer' onclick='picfirst("+data[i].pic[j].id+","+data[i].machine_id+","+i+")'><img src='http://img.wanjiwang.cn/"+data[i].pic[j].url+"' width='190' height='190'/></a></div>");
+				}
+			   }
+			}
+		});
+}
+$(function(){
+	if($.cookie('uid')==""){
+	alert("登陆超时，请重新登陆");
+	window.location.href="/app_dev.php/login";
+	}else{
+	$('#uid').val($.cookie('uid'));
+	}
+	//loadBtn();
+	loadData($.cookie('uid'),0,0,'');
+	});
+</script>
+</head>
+<body style="font-family:微软雅黑;">
+<img src="{{ asset('bundles/jxbundle/images/logo_new.png') }}" width="150px" style="float:left;"/>
+<input id="uid" type='hidden' value=""/>
+<div style="padding-top:10px;">
+<input type="keyword" class="form-control" style="width:200px;float:left;margin-left:300px;" id="keyword" placeholder="输入关键词搜索">
+<button type="button" class="btn btn-danger btn-sm" id="search"  style="float:left;" onclick="searchkeyword()">搜索</button>
+<button type="button" class="btn btn-danger btn-sm" id="save" onclick="oss()" style="float:left;margin-left:50px;margin-right:50px;">全部上传</button>
+<button type="button" class="btn btn-danger btn-sm" id="savepage" onclick="ossPage()" style="float:left;margin-right:50px;">当前页上传</button>
+</div>
+<br /><br />
+<div style="background-color:#FF0;color:red;" id="wait"></div>
+<table class="table">
+<thead>
+  <tr>
+    <th>ID</th>
+    <th>标题</th>
+    <th>联系人</th>
+    <th>联系电话</th>
+    <th>机种</th>
+    <th>机型</th>
+    <th>吨位</th>
+    <th>价格</th>
+	<th>日期</th>
+    <th>审核</th>
+  </tr>
+</thead>
+<tbody id="info">
+<!--<tr><td>1</td><td>liuxingchi</td><td>15200082233</td><td>henhao</td><td>25万</td><td>beijing</td><td>2014</td><td>审核通过</td></tr>
+<tr><td colspan=8 >tupian</td></tr>
+--></tbody>
+</table>
+<button type="button" class="btn btn-danger btn-sm" id="save" onclick="oss()" style="float:right;margin-right:50px;">全部上传</button>
+<button type="button" class="btn btn-danger btn-sm" id="savepage" onclick="ossPage()" style="float:right;margin-right:10px;">当前页上传</button>
+
+<div class="col-sm-12"  style="padding-top:30px;" align="center"> <!--分页开始-->
+  <ul class="pagination" id="pagebar"></ul>
+    <input type="hidden" id="currentPage" style="width:500px;"/>  
+    </div><!--分页结束-->
+<div id="hint"></div>
+
+</body>
+</html>

@@ -1,0 +1,139 @@
+<?php ?>
+<!DOCTYPE html>
+<html>
+		<head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi,width=device-width,initial-scale=1.0,minimum-scale=0.1,maximum-scale=2.0,user-scalable=yes" />
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <title>万吉网图片浏览</title>
+        <link rel="stylesheet" href="{{ asset('bundles/jxbundle/css/slide.css')}}" type="text/css" />
+        <script type="text/javascript" src="{{ asset('bundles/jxxq/jquery-1.10.2.js')}}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/jxbundle/js/hhSwipe.js')}}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/jxxq/jquery.json-2.3.min.js')}}"></script>
+        <script type="text/javascript">
+
+$(function(){							
+		var shuju = {
+			machine_id:$("#machine_id").val()
+		};
+	$.ajax({
+			type: "POST",
+			url: "/api/machine/info",
+			data: $.toJSON(shuju),
+			dataType: 'json',
+			async:false,
+			success: function(data){
+						var array_img1 = [];
+						for(var i=0;i<data.image.length;i++){
+								var url = data.image[i].url;
+								var postfix = url.split("/").slice(-1).join("").substr(1);
+								var img_big = url.substr(0,url.length-5);
+								var big1 = img_big+"1"+postfix;
+								array_img1.push(data.image[i].url);
+						};
+						for(var i=0;i<data.image.length;i++){
+								var url = data.image[i].url;
+								var postfix = url.split("/").slice(-1).join("").substr(1);
+								var img_big = url.substr(0,url.length-5);
+								var big1 = img_big+"0"+postfix;
+								array_img1.splice(data.image[i].position-1,1,big1);
+						};
+						
+						for(var i=0;i<array_img1.length;i++){
+								$("#scroll_wrap").append("<li><a href='#'><img id='img_"+i+"' src='"+array_img1[i]+"' width='100%'/></a></div>");
+						document.getElementById("img_"+i).onload = function() {
+						var haha = this.height;
+						//alert("图片实际高度"+haha);
+						var hehe = this.width;
+						//alert("图片实际宽度"+hehe);
+						var enen = haha/hehe;
+						//alert("高宽比"+enen);
+						var screenH = window.screen.height;
+						//alert(screenH);
+						if(enen<=1){
+							
+								$(this.parentNode.parentNode).css("padding-top",120 + "px");
+								
+							
+							}
+							
+								
+								
+							
+							
+						}; 
+				}
+						
+						for(var j=data.image.length;j<data.image2.length+data.image.length;j++){
+								var url = data.image2[j-data.image.length].url;
+							var postfix = url.split("/").slice(-1).join("").substr(1);
+								var img_big = url.substr(0,url.length-5);
+							var big2 = img_big+"0"+postfix;
+								$("#scroll_wrap").append("<li><a href='#'><img id='img_"+j+"' src='"+big2+"' width='100%' /></a></li>");	
+						document.getElementById("img_"+j).onload = function() {
+						/*var haha = this.height;
+							if(haha < document.body.clientHeight&&haha>10){
+								padding = ((document.body.clientHeight - this.height) / 2);
+								$(this.parentNode.parentNode).css("padding-top","" + padding + "px");
+							}*/
+						var haha = this.height;
+						//alert("图片实际高度"+haha);
+						var hehe = this.width;
+						//alert("图片实际宽度"+hehe);
+						var enen = haha/hehe;
+						//alert("高宽比"+enen);
+						var screenH = window.screen.height;
+						if(enen<=1){
+							
+								$(this.parentNode.parentNode).css("padding-top",120 + "px");
+								}
+							
+							} 
+
+								$("#scroll_position").append("<li><a href='javascript:void(0);'>"+j+"</a></li>");
+								
+						}
+						var slider = Swipe(document.getElementById('scroll_img'), {
+								auto:100000,
+								continuous: false,
+								callback: function(pos) {
+										var i = bullets.length;
+										while (i--) {
+												bullets[i].className = '';
+										}
+										bullets[pos].className = 'on';
+								}
+						});
+						var bullets = document.getElementById('scroll_position').getElementsByTagName('li');
+			
+				},
+				error: function(XMLHttpRequest) {
+					//alert("服务器错误请重试");
+				}		  
+		});
+});
+</script>	
+</head>
+<body>
+<input type="hidden" value="{{machine_id}}" id="machine_id"/>
+<div id="all" style="">
+<article>  
+<div >
+	<div class="scroll_box" id="scroll_img">
+		<ul class="scroll_wrap" id="scroll_wrap"></ul>
+	</div>
+<!--    <ul class="scroll_position" id='scroll_position' style="border:1px solid red;"></ul> -->
+</div>
+</article>
+</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+

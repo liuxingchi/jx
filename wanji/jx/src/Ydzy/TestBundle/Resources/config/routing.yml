@@ -1,0 +1,80 @@
+ydzy_test_homepage:
+    pattern:  /
+    defaults: { _controller: YdzyTestBundle:Default:index }
+ydzy_test_user:
+    pattern:  /user
+    defaults: { _controller: YdzyTestBundle:Default:user }
+ydzy_test_usercenter:
+    pattern:  /usercenter
+    defaults: { _controller: YdzyTestBundle:Default:usercenter }	
+ydzy_test_machine:
+    pattern:  /machine
+    defaults: { _controller: YdzyTestBundle:Default:machine }
+ydzy_test_business:
+    pattern:  /business
+    defaults: { _controller: YdzyTestBundle:Default:business }
+ydzy_test_menu:
+    pattern:  /menu
+    defaults: { _controller: YdzyTestBundle:Default:menu }
+ydzy_test_category:
+    pattern:  /category
+    defaults: { _controller: YdzyTestBundle:Default:category }
+ydzy_test_driver:
+    pattern:  /driver
+    defaults: { _controller: YdzyTestBundle:Default:driver }
+ydzy_test_area:
+    pattern:  /area
+    defaults: { _controller: YdzyTestBundle:Default:area }
+ydzy_test_image:
+    pattern:  /image
+    defaults: { _controller: YdzyTestBundle:Default:image }	
+ydzy_test_brand:
+    pattern:  /brand
+    defaults: { _controller: YdzyTestBundle:Default:brand }	
+ydzyTestBundle_post:
+    pattern:  /post
+    defaults: { _controller: YdzyTestBundle:Default:Post }
+ydzyTestBundle_user:
+    pattern:  /user
+    defaults: { _controller: YdzyTestBundle:Default:user }
+ydzy_test_calllist:
+    pattern:  /calllist
+    defaults: { _controller: YdzyTestBundle:Default:calllist }
+ydzy_test_mycalllist:
+    pattern:  /mycalllist
+    defaults: { _controller: YdzyTestBundle:Default:mycalllist }
+ydzy_test_delectcalllist:
+    pattern:  /delectcall
+    defaults: { _controller: YdzyTestBundle:Default:delectcall }
+ydzy_test_delectall:
+    pattern:  /delectall
+    defaults: { _controller: YdzyTestBundle:Default:delectall }
+    
+ydzy_test_leaveword:
+    pattern:  /leaveword
+    defaults: { _controller: YdzyTestBundle:Default:leaveword }
+ydzy_test_leavewordmanage:
+    pattern:  /leavewordmanage
+    defaults: { _controller: YdzyTestBundle:Default:leavewordmanage }
+ydzy_test_pushpic:
+    pattern:  /push
+    defaults: { _controller: YdzyTestBundle:Default:push }
+ydzy_test_follow:
+    pattern:  /follow
+    defaults: { _controller: YdzyTestBundle:Default:follow }
+ydzy_test_myfollow:
+    pattern:  /myfollow
+    defaults: { _controller: YdzyTestBundle:Default:myfollow }
+ydzy_test_cancelfollow:
+    pattern:  /cancelfollow
+    defaults: { _controller: YdzyTestBundle:Default:cancelfollow }
+ydzy_test_isfollow:
+    pattern:  /isfollow
+    defaults: { _controller: YdzyTestBundle:Default:isfollow }
+ydzy_test_follownews:
+    pattern:  /follownews
+    defaults: { _controller: YdzyTestBundle:Default:follownews }
+
+ydzyTestBundle_useradmin:
+    pattern:  /useradmin
+    defaults: { _controller: YdzyTestBundle:Default:userAdmin }

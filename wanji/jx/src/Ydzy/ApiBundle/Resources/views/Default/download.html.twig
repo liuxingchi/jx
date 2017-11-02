@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+			<title>万吉工程机械下载地址</title>
+		<script type="text/javascript" src="{{ asset('bundles/ydzyadmin/js/jquery-ui-1.8.23.custom/js/jquery-1.8.0.min.js') }}"></script>
+		<script type="text/javascript" src="{{ asset('bundles/ydzyadmin/js/jquery.json-2.3.min.js') }}"></script>
+		<script type="text/javascript" src="{{ asset('bundles/ydzyadmin/js/functions.js') }}"></script>
+		<link rel="stylesheet" type="text/css" href="{{ asset('http://wanjiwang.cn/bundles/push/bootstrap.css')}}">
+		<script type="text/javascript" src="{{ asset('http://wanjiwang.cn/bundles/push/bootstrap.js')}}"></script>
+		<script type="text/javascript" src=""></script>
+	</head>
+	<body>
+			
+		 	<div class="container" style="">
+     			<div class="row">
+						  <div class="col-xs-12" id="ptitle" style="text-align:center;padding:0px;">
+						  		<img class="p_1" src="{{ asset('http://wanjiwang.cn/bundles/jxxq/downAPK.png')}}" style="width:100%;"/>	
+						  </div>
+					</div>
+    	</div>
+    	<script>
+    		//alert("{{ url('download') }}");
+				$(function(){
+					var json = {};
+					ajaxPost(
+							"/app_dev.php/api/version",
+							json,
+							function(data, textStatus){
+									var url = data.url;
+									var browser = navigator.userAgent;
+									/*if (/android/i.test(navigator.userAgent)){
+											window.location.href="http://wanjiwang.cn"+url;
+											}*/
+									if(!!browser.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)){
+										//alert("ddd");
+										window.location.href="https://itunes.apple.com/us/app/wan-ji-gong-cheng-ji-xie/id828224423?l=zh&ls=1&mt=8";
+									}
+									else{
+										window.location.href="http://wanjiwang.cn"+url;
+										}
+							},
+							function(XMLHttpRequest, textStatus, errorThrown){
+									
+							}
+					);
+					
+					
+					});
+				
+				</script>
+	</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

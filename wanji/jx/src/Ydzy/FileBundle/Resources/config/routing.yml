@@ -1,0 +1,6 @@
+Ydzyfile_image_upload:
+    pattern:  /uploadimage
+    defaults: { _controller: YdzyFileBundle:Default:uploadImage }
+Ydzyfile_image_uploadwithnothumb:
+    pattern:  /uploadimagewithnothumb
+    defaults: { _controller: YdzyFileBundle:Default:uploadImageWithNoThumb }
